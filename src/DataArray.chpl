@@ -3,33 +3,51 @@ module DataArray {
         type t;
         var dom: domain;
         var arr: [dom] t;
-        var dim: domain(string);
+
+        var dimension_domain: domain(string);
+        var dim: [dimension_domain] int;
+
         var unit: string;
 
         proc init(type t, arr: [] t, dim: domain(string), unit: string) {
             this.t = t;                      
             this.dom = arr.domain;
-            this.arr = arr;                       
-            this.dim = dim;
-            this.unit = unit;
+            this.arr = arr;
 
+            var dims: [dim] int;
+            var i = 0;
+            for dimension in dim do {
+                dims[dimension] = i;
+                i = i + 1; 
+            }            
+            this.dimension_domain = dim;
+            this.dim = dims;
+            this.unit = unit;
         }
 
         operator +(lhs: DataArray, rhs: DataArray) {
+            // if lhs.unit == rhs.unit then
+            //     compilerError("Units are not the same");
             var result = lhs.arr + rhs.arr;
-            var resultDimensions = lhs.dim;            
+            var resultDimensions = lhs.dimension_domain;            
             return new DataArray(lhs.t, result, resultDimensions, lhs.unit);
         }
 
-        operator -(lhs: DataArray, rhs: DataArray) {
+        operator -(ref lhs: DataArray, rhs: DataArray) {
+            // if lhs.unit != rhs.unit then
+            //     compilerError("Units are not the same");
             var result = lhs.arr - rhs.arr;
-            var resultDimensions = lhs.dim;            
+            var resultDimensions = lhs.dimension_domain;            
             return new DataArray(lhs.t, result, resultDimensions, lhs.unit);
         }
 
         proc dims() const ref {
             return this.dim;
+        }
 
+        proc dims(dimension: string) const {
+            var idx = this.dims[dimension];
+            return idx;
         }
 
         proc units() const ref {
@@ -40,10 +58,5 @@ module DataArray {
             return this.arr;
 
         }
-
-
     }
-    
-    
-
 }

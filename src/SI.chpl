@@ -11,12 +11,22 @@ module SI {
 
     class Length: Quantity {
         type t;
-        var value: t;
+        var value: int;
 
-        proc init(type t, value: t) {
+        proc init(type t, value: int) {
             super.init(1, 0, 0, 0, 0, 0, 0);
             this.t = t;
             this.value = value;
         }
+    }
+
+    class Meter: Length {
+        proc init(value: int) {
+            super.init(Meter, value);
+        }
+    }
+
+    proc isLength(type value) {
+        return isSubtype(value, Length);
     }
 }
