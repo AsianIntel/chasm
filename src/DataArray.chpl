@@ -26,16 +26,22 @@ module DataArray {
         }
 
         operator +(lhs: DataArray, rhs: DataArray) {
-            // if lhs.unit == rhs.unit then
-            //     compilerError("Units are not the same");
+
+            //This compiles but throws error in runtime
+            if (lhs.unit != rhs.unit) then
+                halt("Units are not the same");         
+                
             var result = lhs.arr + rhs.arr;
             var resultDimensions = lhs.dimension_domain;            
             return new DataArray(lhs.t, result, resultDimensions, lhs.unit);
         }
 
         operator -(ref lhs: DataArray, rhs: DataArray) {
-            // if lhs.unit != rhs.unit then
-            //     compilerError("Units are not the same");
+            
+            //This compiles but throws error in runtime
+            if lhs.unit != rhs.unit then
+                halt("Units are not the same");
+
             var result = lhs.arr - rhs.arr;
             var resultDimensions = lhs.dimension_domain;            
             return new DataArray(lhs.t, result, resultDimensions, lhs.unit);
