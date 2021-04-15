@@ -12,9 +12,9 @@ module Sympl {
   
   // m.add("one", 2.45);
   var c1 = new ConstantDict(defaultConstants);
-  writeln(c1.getConstant("gravitational_acceleration"));
+  //writeln(c1.getConstant("gravitational_acceleration"));
   c1.setConstant("gravitational_acceleration", 10.0);
-  writeln(c1.getConstant("gravitational_acceleration"));
+  //writeln(c1.getConstant("gravitational_acceleration"));
 
   const d: domain(2) = {0..3, 0..3};  
   var arr1: [d] int(64) = ((1,2,3,0),(3,4,5,0),(6,7,8,0),(9,10,11,0));  
@@ -23,12 +23,6 @@ module Sympl {
   var a2 = new DataArray(int(64), arr1, dimensions, "Pa");
   var a3 = a1 + a2;
   var dim1 = a1.dims();
-  
 
-  var length = new Length(Meter, 7);
-
-  writeln(a1.unit == a2.unit);
-  writeln(Meter <= Length);
-  writeln(Meter == Length);
-  writeln(Meter >= Length);
+  // writeln(isSubtype(Meter, Length));
 }

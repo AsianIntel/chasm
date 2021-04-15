@@ -11,9 +11,9 @@ module SI {
 
     class Length: Quantity {
         type t;
-        var value: int;
+        var value: real;
 
-        proc init(type t, value: int) {
+        proc init(type t, value: real) {
             super.init(1, 0, 0, 0, 0, 0, 0);
             this.t = t;
             this.value = value;
@@ -21,7 +21,7 @@ module SI {
     }
 
     class Meter: Length {
-        proc init(value: int) {
+        proc init(value: real) {
             super.init(Meter, value);
         }
     }
