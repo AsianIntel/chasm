@@ -1,62 +1,48 @@
 module DataArray {
-    class DataArray {
-        type t;
+    enum DType {
+        Int64,
+        Float64,
+        Bool,
+        String
+    }
+
+    class AbstractDataArray {
+        var data_type: DType;
+
+        proc toDataArray() {
+            select data_type {
+                when DType.Int64 do return try! this :borrowed DataArray(int(64));
+                when DType.Float64 do return try! this :borrowed DataArray(real(64));
+                when DType.Bool do return try! this :borrowed DataArray(bool);
+                when DType.String do return try! this :borrowed DataArray(string);
+            }
+        }
+    }
+
+    class DataArray: AbstractDataArray {
+        type eltType;
+
         var dom: domain;
-        var arr: [dom] t;
+        var arr: [dom] eltType;
 
-        var dimension_domain: domain(string);
-        var dim: [dimension_domain] int;
-
-        var unit: string;
-
-        proc init(type t, arr: [] t, dim: domain(string), unit: string) {
-            this.t = t;                      
+        proc init(type eltType, ref arr: [] eltType) {
+            super.init(getDType(eltType));
+            this.eltType = eltType;
             this.dom = arr.domain;
             this.arr = arr;
-
-            var dims: [dim] int;
-            var i = 0;
-            for dimension in dim do {
-                dims[dimension] = i;
-                i = i + 1; 
-            }            
-            this.dimension_domain = dim;
-            this.dim = dims;
-            this.unit = unit;
         }
+    }
 
-        operator +(lhs: DataArray, rhs: DataArray) {
-            assert(lhs.unit == rhs.unit);
-
-            var result = lhs.arr + rhs.arr;
-            var resultDimensions = lhs.dimension_domain;            
-            return new DataArray(lhs.t, result, resultDimensions, lhs.unit);
+    proc getDType(type value) param {
+        if isSubtype(value, int(64)) {
+            return DType.Int64;
+        } else if isSubtype(value, real(64)) {
+            return DType.Float64;
+        } else if isSubtype(value, bool) {
+            return DType.Bool;
+        } else if isSubtype(value, string) {
+            return DType.String;
         }
-
-        operator -(ref lhs: DataArray, rhs: DataArray) {
-            assert(lhs.unit == rhs.unit);
-
-            var result = lhs.arr - rhs.arr;
-            var resultDimensions = lhs.dimension_domain;            
-            return new DataArray(lhs.t, result, resultDimensions, lhs.unit);
-        }
-
-        proc dims() const ref {
-            return this.dim;
-        }
-
-        proc dims(dimension: string) const {
-            var idx = this.dims[dimension];
-            return idx;
-        }
-
-        proc units() const ref {
-            return this.unit;
-        }
-
-        proc values() const ref {
-            return this.arr;
-
-        }
+        halt("Only the following types are supported: int(64), real(64), bool, string");
     }
 }
