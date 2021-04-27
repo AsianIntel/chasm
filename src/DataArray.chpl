@@ -31,6 +31,19 @@ module DataArray {
             this.dimensions = dimensions;
         }
 
+        proc init(type eltType, size: domain, dimensions: domain(string), default_value: eltType) {
+            super.init(size.rank, size.stridable);
+            this.eltType = eltType;
+            this.rank = size.rank;
+            this.stridable = size.stridable;
+            this.dom = size;
+
+            var arr: [size] eltType = default_value;
+            this.arr = arr;
+
+            this.dimensions = dimensions;
+        }
+
         proc init(type eltType, ref arr: [] eltType, dimensions: domain(string)) {
             super.init(arr.domain.rank, arr.domain.stridable);
             this.eltType = eltType;

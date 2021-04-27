@@ -17,7 +17,7 @@ module Sympl {
 
   const d3: domain(2, stridable = true) = {0..5, 0..5};
   var dimensions3: domain(string) = {"X", "Y"};
-  var d_array3 = new shared DataArray(int, d3, dimensions3);
+  var d_array3 = new shared DataArray(int, d3, dimensions3, 1);
 
   var d_map: map(string, shared AbstractDataArray(rank = 2, stridable = true));
   d_map.add("prop1", d_array1);
