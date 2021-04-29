@@ -28,6 +28,14 @@ module DataArray {
         proc print() {
             halt("Virtual Print method");
         }
+        
+        proc add(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
+            halt("Pure virtual method");
+        }
+
+        proc _add(lhs): owned AbstractDataArray {
+            halt("Pure virtual method");
+        }
     }
 
     class DataArray: AbstractDataArray {
@@ -79,5 +87,19 @@ module DataArray {
         override proc print() {
             writeln(this);
         }
+
+        override proc _add(lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank {
+            var rhs: borrowed DataArray = this;
+            var arr = lhs.arr + rhs.arr;
+            return new owned DataArray(lhs.eltType, arr, lhs.dimensions);
+        }
+
+        override proc add(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
+            return rhs._add(this);
+        }
+    }
+
+    operator +(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray {
+        return lhs.add(rhs);
     }
 }
