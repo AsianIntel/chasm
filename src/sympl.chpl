@@ -25,10 +25,9 @@ module Sympl {
   d_map.add("prop3", d_array3);
 
 
-  d_map.getValue("prop1")._str_();
-  d_map.getValue("prop2")._str_();
-  d_map.getValue("prop3")._str_();
-  
+  d_map.getValue("prop1").print();
+  d_map.getValue("prop2").print();
+  d_map.getValue("prop3").print();
 
   // var length = new Length(Meter);
 }
