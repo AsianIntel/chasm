@@ -1,11 +1,40 @@
 module DataArray {
-    class AbstractDataArray {
-        param rank: int;
-        param stridable: bool;
+    enum Dtype {Int64, Real64, Bool, String};
 
-        proc toDataArray(type eltType) {
-            return try! this :borrowed DataArray(eltType, rank = rank, stridable = stridable);
+    proc toDtype(type t) {
+        select t {
+            when int do
+                return Dtype.Int64;
+            when real do 
+                return Dtype.Real64;
+            when bool do 
+                return Dtype.Bool;
+            when string do 
+                return Dtype.String;
+            otherwise
+                compilerError("only int, real, bool and string types are supported");
+
         }
+    }
+    
+    class AbstractDataArray {
+        var dataArrayType: Dtype;
+        const arrRank: int;
+
+        proc init(type t, r: int) {
+            this.dataArrayType = toDtype(t);
+            this.arrRank = r;
+
+        }   
+
+        proc _str_() {
+            //halt here
+            writeln("This is the generic abstractDataArray class");
+
+        }
+        
+
+        
     }
 
     class DataArray: AbstractDataArray {
@@ -18,21 +47,8 @@ module DataArray {
 
         var dimensions: domain(string);
 
-        proc init(type eltType, size: domain, dimensions: domain(string)) {
-            super.init(size.rank, size.stridable);
-            this.eltType = eltType;
-            this.rank = size.rank;
-            this.stridable = size.stridable;
-            this.dom = size;
-
-            var arr: [size] eltType;
-            this.arr = arr;
-            
-            this.dimensions = dimensions;
-        }
-
         proc init(type eltType, size: domain, dimensions: domain(string), default_value: eltType) {
-            super.init(size.rank, size.stridable);
+            super.init(eltType, size.rank);
             this.eltType = eltType;
             this.rank = size.rank;
             this.stridable = size.stridable;
@@ -45,7 +61,7 @@ module DataArray {
         }
 
         proc init(type eltType, ref arr: [] eltType, dimensions: domain(string)) {
-            super.init(arr.domain.rank, arr.domain.stridable);
+            super.init(eltType, arr.domain.rank);
             this.eltType = eltType;
             this.rank = arr.domain.rank;
             this.stridable = arr.domain.stridable;
@@ -53,5 +69,13 @@ module DataArray {
             this.arr = arr;
             this.dimensions = dimensions;
         }
+
+        override proc _str_() {
+            writeln("DataArray instance of type\n", eltType:string);
+            writeln("\nvalue\n", arr);
+            writeln("\ndimensions\n", dimensions, "\n");      
+            
+        }
+                
     }
 }
