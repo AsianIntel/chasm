@@ -29,7 +29,8 @@ module Sympl {
 
   lhs.print();
   rhs.print();
-  writeln(lhs + rhs);
+  writeln(lhs + rhs - rhs);
+  writeln(lhs.add(rhs).subtract(rhs));
 
   // var length = new Length(Meter);
 }

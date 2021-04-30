@@ -28,12 +28,16 @@ module DataArray {
         proc print() {
             halt("Virtual Print method");
         }
-        
+
+        proc _op(opt: string, lhs): owned AbstractDataArray {
+            halt("Pure virtual method");
+        }
+
         proc add(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
             halt("Pure virtual method");
         }
 
-        proc _add(lhs): owned AbstractDataArray {
+        proc subtract(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
             halt("Pure virtual method");
         }
     }
@@ -88,18 +92,38 @@ module DataArray {
             writeln(this);
         }
 
-        override proc _add(lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank {
+        override proc _op(opt: string, lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank {
             var rhs: borrowed DataArray = this;
-            var arr = lhs.arr + rhs.arr;
-            return new owned DataArray(lhs.eltType, arr, lhs.dimensions);
+
+            select opt {
+                when "+" {
+                    var arr = lhs.arr + rhs.arr;
+                    return new owned DataArray(lhs.eltType, arr, lhs.dimensions);
+                }
+                when "-" {
+                    var arr = lhs.arr - rhs.arr;
+                    return new owned DataArray(lhs.eltType, arr, lhs.dimensions);
+                }
+                otherwise {
+                    halt("Unsupported operation on DataArray");
+                }
+            }
         }
 
         override proc add(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
-            return rhs._add(this);
+            return rhs._op("+", this);
+        }
+
+        override proc subtract(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
+            return rhs._op("-", this);
         }
     }
 
     operator +(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray {
         return lhs.add(rhs);
+    }
+
+    operator -(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray {
+        return lhs.subtract(rhs);
     }
 }
