@@ -1,4 +1,6 @@
 module DataArray {
+    private use SI;
+
     enum DType {Int64, Real64, Bool, String};
 
     proc toDType(type t) {
@@ -51,8 +53,9 @@ module DataArray {
         var arr: [dom] eltType;
 
         var dimensions: domain(string);
+        var quantity: Quantity;
 
-        proc init(type eltType, size: domain, dimensions: domain(string)) {
+        proc init(type eltType, size: domain, dimensions: domain(string), quantity: Quantity) {
             super.init(eltType, size.rank);
             this.eltType = eltType;
             this.rank = size.rank;
@@ -63,9 +66,10 @@ module DataArray {
             this.arr = arr;
 
             this.dimensions = dimensions;
+            this.quantity = quantity;
         }
 
-        proc init(type eltType, size: domain, dimensions: domain(string), default_value: eltType) {
+        proc init(type eltType, size: domain, dimensions: domain(string), quantity: borrowed Quantity, default_value: eltType) {
             super.init(eltType, size.rank);
             this.eltType = eltType;
             this.rank = size.rank;
@@ -76,9 +80,10 @@ module DataArray {
             this.arr = arr;
 
             this.dimensions = dimensions;
+            this.quantity = quantity;
         }
 
-        proc init(type eltType, ref arr: [] eltType, dimensions: domain(string)) {
+        proc init(type eltType, ref arr: [] eltType, dimensions: domain(string), quantity: borrowed Quantity) {
             super.init(eltType, arr.domain.rank);
             this.eltType = eltType;
             this.rank = arr.domain.rank;
@@ -86,6 +91,7 @@ module DataArray {
             this.dom = arr.domain;
             this.arr = arr;
             this.dimensions = dimensions;
+            this.quantity = quantity;
         }
 
         override proc print() {
@@ -95,14 +101,19 @@ module DataArray {
         override proc _op(opt: string, lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank {
             var rhs: borrowed DataArray = this;
 
+            if (this.quantity != rhs.quantity) {
+                halt("Quantities are not same");
+            }
+
+            var scale = rhs.quantity.toBaseUnit() / lhs.quantity.toBaseUnit();
             select opt {
                 when "+" {
-                    var arr = lhs.arr + rhs.arr;
-                    return new owned DataArray(lhs.eltType, arr, lhs.dimensions);
+                    var arr = lhs.arr + scale * rhs.arr;
+                    return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
                 }
                 when "-" {
-                    var arr = lhs.arr - rhs.arr;
-                    return new owned DataArray(lhs.eltType, arr, lhs.dimensions);
+                    var arr = lhs.arr - scale * rhs.arr;
+                    return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
                 }
                 otherwise {
                     halt("Unsupported operation on DataArray");
