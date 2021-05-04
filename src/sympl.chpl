@@ -1,6 +1,7 @@
 /* Documentation for Sympl */
 module Sympl {
   use DataArray;
+  use Length;
   use SI;
   use Constants;
   use Map;

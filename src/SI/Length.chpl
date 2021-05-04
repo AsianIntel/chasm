@@ -1,17 +1,5 @@
-module SI {
-    class Quantity {
-        var length: int = 0;
-        var mass: int = 0;
-        var time: int = 0;
-        var electric_current: int = 0;
-        var temperature: int = 0;
-        var substance: int = 0;
-        var luminosity: int = 0;
-
-        proc toBaseUnit(): real {
-            halt("Virtual Class method");
-        }
-    }
+module Length {
+    use SI;
 
     class Length: Quantity {
         type t;
@@ -34,8 +22,10 @@ module SI {
         }
     }
 
+    class Kilometer: Length {}
     class Meter: Length {}
     class Centimetre: Length {}
+    class Milimetre: Length {}
 
     proc isLength(type value) param {
         return isSubtype(value, Length);
@@ -43,24 +33,16 @@ module SI {
 
     proc typeToBase(type value) {
         select value {
+            when Kilometer do
+                return 1000;
             when Meter do 
                 return 1;
             when Centimetre do
                 return 0.01;
+            when Milimetre do
+                return 0.001;
             otherwise
                 compilerError("Unregistered unit");
         }
-    }
-
-    operator ==(lhs: borrowed Quantity, rhs: borrowed Quantity): bool {
-        return (
-            lhs.length == rhs.length &&
-            lhs.mass == rhs.mass &&
-            lhs.time == rhs.time &&
-            lhs.electric_current == rhs.electric_current &&
-            lhs.temperature == rhs.temperature &&
-            lhs.substance == rhs.substance &&
-            lhs.luminosity == rhs.luminosity
-        );
     }
 }
