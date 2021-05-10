@@ -107,7 +107,7 @@ module DataArray {
         override proc _op(opt: string, lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank {
             var rhs: borrowed DataArray = this;
             
-            if (!(lhs.quantity == rhs.quantity)) {
+            if (lhs.quantity != rhs.quantity) {
                 halt("Quantities are not same");
             }
 
@@ -145,7 +145,6 @@ module DataArray {
                 halt("Quantities are not same");
             }           
         }
-        
     }
 
     operator +(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray {

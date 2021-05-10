@@ -23,5 +23,9 @@ module SI {
             lhs.substance == rhs.substance &&
             lhs.luminosity == rhs.luminosity
         );
-    }    
+    }
+
+    operator !=(lhs: borrowed Quantity, rhs: borrowed Quantity): bool {
+        return !(lhs == rhs);
+    }
 }
