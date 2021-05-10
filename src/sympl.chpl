@@ -21,7 +21,7 @@ module Sympl {
 
   const d3: domain(2, stridable = true) = {0..3, 0..3};
   var dimensions3: domain(string) = {"X", "Z"};
-  var q3: Quantity = new Length(Centimetre);
+  var q3: Quantity = new Length(Centimeter);
   var d_array3 = new shared DataArray(int, d3, dimensions3, q3, 1);
 
   var q4: Quantity = new Mass(Kilogram);
