@@ -25,7 +25,7 @@ module Length {
     class Kilometer: Length {}
     class Meter: Length {}
     class Centimetre: Length {}
-    class Milimetre: Length {}
+    class Millimetre: Length {}
 
     proc isLength(type value) param {
         return isSubtype(value, Length);
@@ -39,7 +39,7 @@ module Length {
                 return 1;
             when Centimetre do
                 return 0.01;
-            when Milimetre do
+            when Millimetre do
                 return 0.001;
             otherwise
                 compilerError("Unregistered unit");

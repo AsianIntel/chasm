@@ -42,6 +42,11 @@ module DataArray {
         proc subtract(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
             halt("Pure virtual method");
         }
+
+        proc toUnits(newUnits: borrowed Quantity): owned AbstractDataArray {
+            halt("Pure virtual method");
+        }
+        
     }
 
     class DataArray: AbstractDataArray {
@@ -93,6 +98,7 @@ module DataArray {
             this.dimensions = dimensions;
             this.quantity = quantity;
         }
+        
 
         override proc print() {
             writeln(this);
@@ -100,8 +106,8 @@ module DataArray {
 
         override proc _op(opt: string, lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank {
             var rhs: borrowed DataArray = this;
-
-            if (this.quantity != rhs.quantity) {
+            
+            if (!(lhs.quantity == rhs.quantity)) {
                 halt("Quantities are not same");
             }
 
@@ -111,7 +117,7 @@ module DataArray {
                     var arr = lhs.arr + scale * rhs.arr;
                     return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
                 }
-                when "-" {
+                when "-" { 
                     var arr = lhs.arr - scale * rhs.arr;
                     return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
                 }
@@ -128,6 +134,18 @@ module DataArray {
         override proc subtract(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
             return rhs._op("-", this);
         }
+
+        override proc toUnits(newUnits: borrowed Quantity): owned AbstractDataArray {
+            if (this.quantity == newUnits) {
+                var scale = this.quantity.toBaseUnit() / newUnits.toBaseUnit();
+                var arr = scale * this.arr;
+                return new owned DataArray(arr.eltType, arr, this.dimensions, newUnits);                
+                
+            } else {
+                halt("Quantities are not same");
+            }           
+        }
+        
     }
 
     operator +(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray {

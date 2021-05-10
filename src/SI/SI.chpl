@@ -23,5 +23,5 @@ module SI {
             lhs.substance == rhs.substance &&
             lhs.luminosity == rhs.luminosity
         );
-    }
+    }    
 }

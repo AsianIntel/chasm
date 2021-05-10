@@ -2,6 +2,7 @@
 module Sympl {
   use DataArray;
   use Length;
+  use Mass;
   use SI;
   use Constants;
   use State;
@@ -23,13 +24,23 @@ module Sympl {
   var q3: Quantity = new Length(Centimetre);
   var d_array3 = new shared DataArray(int, d3, dimensions3, q3, 1);
 
+  var q4: Quantity = new Mass(Kilogram);
+  var d_array4 = new shared DataArray(int, d3, dimensions3, q4, 1);
+
+  // writeln(d_array4);
+
   var state = new State();
   state.add("prop1", d_array1);
   state.add("prop2", d_array2);
   state.add("prop3", d_array3);
+  state.add("prop4", d_array4);
 
   var lhs = state.getValue("prop1");
   var rhs = state.getValue("prop3");
+
+  // writeln(rhs.toUnits(q1));
+  // writeln(rhs);
+
   writeln(lhs.add(rhs));
 
   // var length = new Length(Meter);
