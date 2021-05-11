@@ -4,17 +4,20 @@ module Mass {
     class Mass: Quantity {
         type t;
         var toBase: real;
+        var symbol: string;
 
         proc init(type t) where isMass(t) {
             super.init(0, 1, 0, 0, 0, 0, 0);
             this.t = t;
             this.toBase = typeToBase(t);
+            this.symbol = typeToSymbols(t);
         }
 
         proc init(type t, toBase: real) where isMass(t) {
             super.init(0, 1, 0, 0, 0, 0, 0);
             this.t = t;
             this.toBase = toBase;
+            this.symbol = typeToSymbols(t);
         }
 
         override proc toBaseUnit(): real {
@@ -42,6 +45,21 @@ module Mass {
                 return 0.01;
             when Milligram do
                 return 0.001;
+            otherwise
+                compilerError("Unregistered unit");
+        }
+    }
+
+    proc typeToSymbols(type value) {
+        select value {
+            when Kilogram do
+                return "kg";
+            when Gram do 
+                return "g";
+            when Centigram do
+                return "cg";
+            when Milligram do
+                return "mg";
             otherwise
                 compilerError("Unregistered unit");
         }
