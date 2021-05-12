@@ -16,7 +16,7 @@ module Sympl {
   // const d2: domain(2, stridable = true) = {0..3};  
   var arr2: [0..3] int = [1,2,3,0];
   var dimensions2: domain(string) = {"X"};
-  var q2: Quantity = new Length(Meter, 1);
+  var q2: Quantity = new Length(Meter, 1, "m");
   var d_array2 = new shared DataArray(int, arr2, dimensions2, q2);
 
   const d3: domain(2, stridable = true) = {0..3, 0..3};
