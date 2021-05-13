@@ -139,8 +139,7 @@ module DataArray {
             if (this.quantity == newUnits) {
                 var scale = this.quantity.toBaseUnit() / newUnits.toBaseUnit();
                 var arr = scale * this.arr;
-                return new owned DataArray(arr.eltType, arr, this.dimensions, newUnits);                
-                
+                return new owned DataArray(arr.eltType, arr, this.dimensions, newUnits);
             } else {
                 halt("Quantities are not same");
             }           

@@ -38,10 +38,7 @@ module Sympl {
   var lhs = state.getValue("prop1");
   var rhs = state.getValue("prop3");
 
-  // writeln(rhs.toUnits(q1));
+  writeln(lhs);
   writeln(rhs);
-
-  // writeln(lhs.add(rhs));
-
-  // var length = new Length(Meter);
+  writeln(lhs.add(rhs));
 }

@@ -46,40 +46,56 @@ module Length {
     class Millimeter: Length {}
     class Micrometer: Length {}
     class Nanometer: Length {}
-    class Pictometer: Length {}
+    class Picometer: Length {}
     class Femtometer: Length {}
     class Attometer: Length {}
     class Zeptometer: Length {}
     class Yoctometer: Length {} 
 
-    proc typeToBase(type value) {
+    proc typeToBase(type value): (real, string) {
         select value {
             when Yottameter do 
-                return (10**24, "Ym");
+                return (10.0**24, "Ym");
             when Zettameter do
-                return (10**21, "Zm");
+                return (10.0**21, "Zm");
             when Exameter do
-                return (10**18, "Em");
+                return (10.0**18, "Em");
             when Petameter do
-                return (10**15, "Pm");
+                return (10.0**15, "Pm");
             when Terameter do
-                return (10**12, "Tm");
+                return (10.0**12, "Tm");
             when Gigameter do
-                return (10**9, "Gm");
+                return (10.0**9, "Gm");
             when Megameter do
-                return (10**6, "Mm");
+                return (10.0**6, "Mm");
             when Kilometer do
-                return (10**3, "km");
+                return (10.0**3, "km");
             when Hectometer do
-                return (10**2, "hm");
+                return (10.0**2, "hm");
             when Decameter do
-                return (10, "dam");
+                return (10.0**1, "dam");
             when Meter do 
                 return (1, "m");
+            when Decimeter do
+                return (10.0**-1, "dm"); 
             when Centimeter do
-                return (0.01, "cm");
+                return (10.0**-2, "cm");
             when Millimeter do
-                return (0.001, "mm");
+                return (10.0**-3, "mm");
+            when Micrometer do
+                return (10.0**-6, "μm");
+            when Nanometer do
+                return (10.0**-9, "nm");
+            when Picometer do
+                return (10.0**-12, "pm");
+            when Femtometer do
+                return (10.0**-15, "fm");
+            when Attometer do
+                return (10.0**-18, "am");
+            when Zeptometer do
+                return (10.0**-21, "zm");
+            when Yoctometer do
+                return (10.0**-24, "ym");
             otherwise
                 compilerError("Unregistered unit");
         }
