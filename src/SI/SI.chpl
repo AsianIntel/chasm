@@ -1,12 +1,12 @@
 module SI {
     class Quantity {
-        var length: int = 0;
-        var mass: int = 0;
-        var time: int = 0;
-        var electric_current: int = 0;
-        var temperature: int = 0;
-        var substance: int = 0;
-        var luminosity: int = 0;
+        param length: int;
+        param mass: int;
+        param time: int;
+        param electric_current: int;
+        param temperature: int;
+        param substance: int;
+        param luminosity: int;
 
         proc toBaseUnit(): real {
             halt("Virtual Class method");

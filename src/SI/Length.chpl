@@ -2,24 +2,9 @@ module Length {
     use SI;
 
     class Length: Quantity {
-        type t;
-        var toBase: real;
-        var symbol: string;
-
-        proc init(type t) where isLength(t) {
-            super.init(1, 0, 0, 0, 0, 0, 0);
-            this.t = t;
-            var (toBase, symbol) = typeToBase(t);
-            this.toBase = toBase;
-            this.symbol = symbol;
-        }
-
-        proc init(type t, toBase: real, symbol: string) where isLength(t) {
-            super.init(1, 0, 0, 0, 0, 0, 0);
-            this.t = t;
-            this.toBase = toBase;
-            this.symbol = symbol;
-        }
+        param toBase: real;
+        param symbol: string;
+        var value: real;
 
         override proc toBaseUnit(): real {
             return this.toBase;
@@ -30,74 +15,25 @@ module Length {
         return isSubtype(value, Length);
     }
 
-    class Yottameter: Length {}
-    class Zettameter: Length {}
-    class Exameter: Length {}
-    class Petameter: Length {}
-    class Terameter: Length {}
-    class Gigameter: Length {}
-    class Megameter: Length {}
-    class Kilometer: Length {}
-    class Hectometer: Length {}
-    class Decameter: Length {}
-    class Meter: Length {}
-    class Decimeter: Length {}
-    class Centimeter: Length {}
-    class Millimeter: Length {}
-    class Micrometer: Length {}
-    class Nanometer: Length {}
-    class Picometer: Length {}
-    class Femtometer: Length {}
-    class Attometer: Length {}
-    class Zeptometer: Length {}
-    class Yoctometer: Length {} 
-
-    proc typeToBase(type value): (real, string) {
-        select value {
-            when Yottameter do 
-                return (10.0**24, "Ym");
-            when Zettameter do
-                return (10.0**21, "Zm");
-            when Exameter do
-                return (10.0**18, "Em");
-            when Petameter do
-                return (10.0**15, "Pm");
-            when Terameter do
-                return (10.0**12, "Tm");
-            when Gigameter do
-                return (10.0**9, "Gm");
-            when Megameter do
-                return (10.0**6, "Mm");
-            when Kilometer do
-                return (10.0**3, "km");
-            when Hectometer do
-                return (10.0**2, "hm");
-            when Decameter do
-                return (10.0**1, "dam");
-            when Meter do 
-                return (1, "m");
-            when Decimeter do
-                return (10.0**-1, "dm"); 
-            when Centimeter do
-                return (10.0**-2, "cm");
-            when Millimeter do
-                return (10.0**-3, "mm");
-            when Micrometer do
-                return (10.0**-6, "μm");
-            when Nanometer do
-                return (10.0**-9, "nm");
-            when Picometer do
-                return (10.0**-12, "pm");
-            when Femtometer do
-                return (10.0**-15, "fm");
-            when Attometer do
-                return (10.0**-18, "am");
-            when Zeptometer do
-                return (10.0**-21, "zm");
-            when Yoctometer do
-                return (10.0**-24, "ym");
-            otherwise
-                compilerError("Unregistered unit");
-        }
-    }
+    type Yottameter = Length(1, 0, 0, 0, 0, 0, 0, 1e24, "Ym");
+    type Zettameter = Length(1, 0, 0, 0, 0, 0, 0, 1e21, "Zm");
+    type Exameter = Length(1, 0, 0, 0, 0, 0, 0, 1e18, "Em");
+    type Petameter = Length(1, 0, 0, 0, 0, 0, 0, 1e15, "Pm");
+    type Terameter = Length(1, 0, 0, 0, 0, 0, 0, 1e12, "Tm");
+    type Gigameter = Length(1, 0, 0, 0, 0, 0, 0, 1e9, "Gm");
+    type Megameter = Length(1, 0, 0, 0, 0, 0, 0, 1e6, "Mm");
+    type Kilometer = Length(1, 0, 0, 0, 0, 0, 0, 1e3, "km");
+    type Hectometer = Length(1, 0, 0, 0, 0, 0, 0, 1e2, "hm");
+    type Decameter = Length(1, 0, 0, 0, 0, 0, 0, 10, "dam");
+    type Meter = Length(1, 0, 0, 0, 0, 0, 0, 1, "m");
+    type Decimeter = Length(1, 0, 0, 0, 0, 0, 0, 1e-1, "dm");
+    type Centimeter = Length(1, 0, 0, 0, 0, 0, 0, 1e-2, "cm");
+    type Millimeter = Length(1, 0, 0, 0, 0, 0, 0, 1e-3, "mm");
+    type Micrometer = Length(1, 0, 0, 0, 0, 0, 0, 1e-6, "μm");
+    type Nanometer = Length(1, 0, 0, 0, 0, 0, 0, 1e-9, "nm");
+    type Picometer = Length(1, 0, 0, 0, 0, 0, 0, 1e-12, "pm");
+    type Femtometer = Length(1, 0, 0, 0, 0, 0, 0, 1e-15, "fm");
+    type Attometer = Length(1, 0, 0, 0, 0, 0, 0, 1e-18, "am");
+    type Zeptometer = Length(1, 0, 0, 0, 0, 0, 0, 1e-21, "zm");
+    type Yoctometer = Length(1, 0, 0, 0, 0, 0, 0, 1e-24, "ym");
 }
