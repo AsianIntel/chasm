@@ -2,67 +2,44 @@ module Mass {
     use SI;
 
     class Mass: Quantity {
-        type t;
-        var toBase: real;
-        var symbol: string;
-
-        proc init(type t) where isMass(t) {
-            super.init(0, 1, 0, 0, 0, 0, 0);
-            this.t = t;
-            this.toBase = typeToBase(t);
-            this.symbol = typeToSymbols(t);
-        }
-
-        proc init(type t, toBase: real) where isMass(t) {
-            super.init(0, 1, 0, 0, 0, 0, 0);
-            this.t = t;
-            this.toBase = toBase;
-            this.symbol = typeToSymbols(t);
-        }
+        param toBase: real;
+        param symbol: string;
+        var value: real;        
 
         override proc toBaseUnit(): real {
             return this.toBase;
         }
 
-    }
+        override proc retSymbol(): string {
+            return this.symbol;
+        }
 
-    class Kilogram: Mass {}
-    class Gram: Mass {}
-    class Centigram: Mass {}
-    class Milligram: Mass {}
+    }   
 
     proc isMass(type value) param {
         return isSubtype(value, Mass);
     }
 
-    proc typeToBase(type value) {
-        select value {
-            when Kilogram do
-                return 1000;
-            when Gram do 
-                return 1;
-            when Centigram do
-                return 0.01;
-            when Milligram do
-                return 0.001;
-            otherwise
-                compilerError("Unregistered unit");
-        }
-    }
-
-    proc typeToSymbols(type value) {
-        select value {
-            when Kilogram do
-                return "kg";
-            when Gram do 
-                return "g";
-            when Centigram do
-                return "cg";
-            when Milligram do
-                return "mg";
-            otherwise
-                compilerError("Unregistered unit");
-        }
-    }
+    type Yottagram = Mass(0, 1, 0, 0, 0, 0, 0, 1e24, "Yg");
+    type Zettagram = Mass(0, 1, 0, 0, 0, 0, 0, 1e21, "Zg");
+    type Exagram = Mass(0, 1, 0, 0, 0, 0, 0, 1e18, "Eg");
+    type Petagram = Mass(0, 1, 0, 0, 0, 0, 0, 1e15, "Pg");
+    type Teragram = Mass(0, 1, 0, 0, 0, 0, 0, 1e12, "Tg");
+    type Gigagram = Mass(0, 1, 0, 0, 0, 0, 0, 1e9, "Gg");
+    type Megagram = Mass(0, 1, 0, 0, 0, 0, 0, 1e6, "Mg");
+    type Kilogram = Mass(0, 1, 0, 0, 0, 0, 0, 1e3, "kg");
+    type Hectogram = Mass(0, 1, 0, 0, 0, 0, 0, 1e2, "hg");
+    type Decagram = Mass(0, 1, 0, 0, 0, 0, 0, 10, "dag");
+    type gram = Mass(0, 1, 0, 0, 0, 0, 0, 1, "g");
+    type Decigram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-1, "dg");
+    type Centigram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-2, "cg");
+    type Milligram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-3, "mg");
+    type Microgram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-6, "μg");
+    type Nanogram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-9, "ng");
+    type Picogram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-12, "pg");
+    type Femtogram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-15, "fg");
+    type Attogram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-18, "ag");
+    type Zeptogram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-21, "zg");
+    type Yoctogram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-24, "yg");
 
 }

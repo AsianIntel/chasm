@@ -9,6 +9,11 @@ module Length {
         override proc toBaseUnit(): real {
             return this.toBase;
         }
+
+        override proc retSymbol(): string {
+            return this.symbol;
+        }
+                
     }
 
     proc isLength(type value) param {

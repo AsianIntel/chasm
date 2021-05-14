@@ -24,7 +24,7 @@ module Sympl {
   var q3: Quantity = new Meter(1);
   var d_array3 = new shared DataArray(int, d3, dimensions3, q3, 1);
 
-  var q4: Quantity = new Mass(Kilogram);
+  var q4: Quantity = new Kilogram(2);
   var d_array4 = new shared DataArray(int, d3, dimensions3, q4, 1);
 
   // writeln(d_array4);
@@ -36,9 +36,11 @@ module Sympl {
   state.add("prop4", d_array4);
 
   var lhs = state.getValue("prop1");
-  var rhs = state.getValue("prop3");
+  var rhs = state.getValue("prop4");
 
   writeln(lhs);
   writeln(rhs);
   writeln(lhs.add(rhs));
+  
+  
 }

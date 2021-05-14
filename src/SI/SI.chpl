@@ -11,6 +11,11 @@ module SI {
         proc toBaseUnit(): real {
             halt("Virtual Class method");
         }
+
+        proc retSymbol(): string {
+            halt("Virtual Class method");
+        }
+
     }
 
     operator ==(lhs: borrowed Quantity, rhs: borrowed Quantity): bool {
