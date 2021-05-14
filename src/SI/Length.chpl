@@ -1,5 +1,6 @@
 module Length {
     use SI;
+    use IO;
 
     class Length: Quantity {
         param toBase: real;
@@ -12,6 +13,10 @@ module Length {
 
         override proc symbol(): string {
             return this.symbol;
+        }
+
+        override proc writeThis(f) throws {
+            f <~> "{value = " <~> value <~> ", symbol = " <~> symbol() <~> "}";
         }
     }
 

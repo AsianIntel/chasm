@@ -1,5 +1,6 @@
 module Mass {
     use SI;
+    use IO;
 
     class Mass: Quantity {
         param toBase: real;
@@ -12,6 +13,10 @@ module Mass {
 
         override proc symbol(): string {
             return this.symbol;
+        }
+
+        override proc writeThis(f) throws {
+            f <~> "{value = " <~> value <~> ", symbol = " <~> symbol() <~> "}";
         }
     } 
 

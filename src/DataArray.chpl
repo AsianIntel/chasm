@@ -54,7 +54,6 @@ module DataArray {
 
         var dimensions: domain(string);
         var quantity: Quantity;
-        var attrs: string;
 
         proc init(type eltType, size: domain, dimensions: domain(string), quantity: Quantity) {
             super.init(eltType, size.rank);
@@ -68,7 +67,6 @@ module DataArray {
 
             this.dimensions = dimensions;
             this.quantity = quantity;
-            this.attrs = quantity.symbol();
         }
 
         proc init(type eltType, size: domain, dimensions: domain(string), quantity: borrowed Quantity, default_value: eltType) {
@@ -83,7 +81,6 @@ module DataArray {
 
             this.dimensions = dimensions;
             this.quantity = quantity;
-            this.attrs = quantity.symbol();
         }
 
         proc init(type eltType, ref arr: [] eltType, dimensions: domain(string), quantity: borrowed Quantity) {
@@ -95,7 +92,6 @@ module DataArray {
             this.arr = arr;
             this.dimensions = dimensions;
             this.quantity = quantity;
-            this.attrs = quantity.symbol();
         }
 
         override proc _op(opt: string, lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank {

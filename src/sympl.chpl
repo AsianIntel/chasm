@@ -36,11 +36,9 @@ module Sympl {
   state.add("prop4", d_array4);
 
   var lhs = state.getValue("prop1");
-  var rhs = state.getValue("prop4");
+  var rhs = state.getValue("prop3");
 
   writeln(lhs);
   writeln(rhs);
   writeln(lhs.add(rhs));
-  
-  
 }
