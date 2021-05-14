@@ -10,14 +10,9 @@ module Length {
             return this.toBase;
         }
 
-        override proc retSymbol(): string {
+        override proc symbol(): string {
             return this.symbol;
         }
-                
-    }
-
-    proc isLength(type value) param {
-        return isSubtype(value, Length);
     }
 
     type Yottameter = Length(1, 0, 0, 0, 0, 0, 0, 1e24, "Ym");

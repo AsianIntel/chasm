@@ -12,10 +12,9 @@ module SI {
             halt("Virtual Class method");
         }
 
-        proc retSymbol(): string {
+        proc symbol(): string {
             halt("Virtual Class method");
         }
-
     }
 
     operator ==(lhs: borrowed Quantity, rhs: borrowed Quantity): bool {

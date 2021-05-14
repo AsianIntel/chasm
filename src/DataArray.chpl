@@ -25,10 +25,6 @@ module DataArray {
         proc init(type d_type, rank: int) {
             this.d_type = toDType(d_type);
             this.rank = rank;
-        }   
-
-        proc print() {
-            halt("Virtual Print method");
         }
 
         proc _op(opt: string, lhs): owned AbstractDataArray {
@@ -46,7 +42,6 @@ module DataArray {
         proc toUnits(newUnits: borrowed Quantity): owned AbstractDataArray {
             halt("Pure virtual method");
         }
-        
     }
 
     class DataArray: AbstractDataArray {
@@ -73,8 +68,7 @@ module DataArray {
 
             this.dimensions = dimensions;
             this.quantity = quantity;
-            this.attrs = quantity.retSymbol();
-
+            this.attrs = quantity.symbol();
         }
 
         proc init(type eltType, size: domain, dimensions: domain(string), quantity: borrowed Quantity, default_value: eltType) {
@@ -89,7 +83,7 @@ module DataArray {
 
             this.dimensions = dimensions;
             this.quantity = quantity;
-            this.attrs = quantity.retSymbol();
+            this.attrs = quantity.symbol();
         }
 
         proc init(type eltType, ref arr: [] eltType, dimensions: domain(string), quantity: borrowed Quantity) {
@@ -101,12 +95,7 @@ module DataArray {
             this.arr = arr;
             this.dimensions = dimensions;
             this.quantity = quantity;
-            this.attrs = quantity.retSymbol();
-        }
-        
-
-        override proc print() {
-            writeln(this);
+            this.attrs = quantity.symbol();
         }
 
         override proc _op(opt: string, lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank {

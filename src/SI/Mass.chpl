@@ -10,15 +10,10 @@ module Mass {
             return this.toBase;
         }
 
-        override proc retSymbol(): string {
+        override proc symbol(): string {
             return this.symbol;
         }
-
-    }   
-
-    proc isMass(type value) param {
-        return isSubtype(value, Mass);
-    }
+    } 
 
     type Yottagram = Mass(0, 1, 0, 0, 0, 0, 0, 1e24, "Yg");
     type Zettagram = Mass(0, 1, 0, 0, 0, 0, 0, 1e21, "Zg");
@@ -41,5 +36,4 @@ module Mass {
     type Attogram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-18, "ag");
     type Zeptogram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-21, "zg");
     type Yoctogram = Mass(0, 1, 0, 0, 0, 0, 0, 1e-24, "yg");
-
 }
