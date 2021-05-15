@@ -42,8 +42,8 @@ module QTime {
     type Zeptosecond = Time(0, 0, 1, 0, 0, 0, 0, 1e-21, "zs");
     type Yoctosecond = Time(0, 0, 1, 0, 0, 0, 0, 1e-24, "ys");
 
-    type Year = Time(0, 0, 1, 0, 0, 0, 0, 3.15367e7, "year");
+    type Year = Time(0, 0, 1, 0, 0, 0, 0, 3.15367e7, "yr");
     type Day = Time(0, 0, 1, 0, 0, 0, 0, 8.64e4, "day");
     type Hour = Time(0, 0, 1, 0, 0, 0, 0, 3.6e3, "hr");
-    type Min = Time(0, 0, 1, 0, 0, 0, 0, 60, "min");
+    type Minute = Time(0, 0, 1, 0, 0, 0, 0, 60, "min");
 }
