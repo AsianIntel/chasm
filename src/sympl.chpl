@@ -3,6 +3,7 @@ module Sympl {
   use DataArray;
   use Length;
   use Mass;
+  use QTime;
   use SI;
   use Constants;
   use State;
@@ -27,6 +28,12 @@ module Sympl {
   var q4: Quantity = new Kilogram(2);
   var d_array4 = new shared DataArray(int, d3, dimensions3, q4, 1);
 
+  var q5: Quantity = new Second(1);
+  var d_array5 = new shared DataArray(int, d3, dimensions3, q5, 1);
+
+  var q6: Quantity = new Day(1);
+  var d_array6 = new shared DataArray(int, d3, dimensions3, q6, 1);
+
   // writeln(d_array4);
 
   var state = new State();
@@ -34,9 +41,11 @@ module Sympl {
   state.add("prop2", d_array2);
   state.add("prop3", d_array3);
   state.add("prop4", d_array4);
+  state.add("prop5", d_array5);
+  state.add("prop6", d_array6);
 
-  var lhs = state.getValue("prop1");
-  var rhs = state.getValue("prop3");
+  var lhs = state.getValue("prop5");
+  var rhs = state.getValue("prop6");
 
   writeln(lhs);
   writeln(rhs);
