@@ -1,5 +1,5 @@
 module Length {
-    use SI;
+    use Quantity;
     use IO;
 
     class Length: Quantity {

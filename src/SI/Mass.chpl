@@ -1,5 +1,5 @@
 module Mass {
-    use SI;
+    use Quantity;
     use IO;
 
     class Mass: Quantity {

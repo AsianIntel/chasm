@@ -1,9 +1,6 @@
 /* Documentation for Sympl */
 module Sympl {
   use DataArray;
-  use Length;
-  use Mass;
-  use QTime;
   use SI;
   use Constants;
   use State;

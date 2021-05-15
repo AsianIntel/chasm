@@ -1,5 +1,5 @@
 module DataArray {
-    private use SI;
+    private use Quantity;
 
     enum DType {Int64, Real64, Bool, String};
 
