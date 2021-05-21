@@ -3,4 +3,5 @@ module SI {
     public use Length;
     public use Mass;
     public use QTime as Time;
+    public use Temperature;
 }

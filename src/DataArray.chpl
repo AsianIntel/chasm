@@ -3,6 +3,40 @@ module DataArray {
 
     enum DType {Int64, Real64, Bool, String};
 
+    proc selOpt(opt: string, lhs: borrowed DataArray, type eltType, ref tempArr: [] eltType): owned AbstractDataArray {
+        select opt {
+            when "+" {
+                var arr = lhs.arr + tempArr;
+                return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
+            }
+            when "-" { 
+                var arr = lhs.arr - tempArr;
+                return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
+            }
+            otherwise {
+                halt("Unsupported operation on DataArray");
+            }
+        }   
+        
+    }
+
+    proc selOpt(opt: string, lhs: borrowed DataArray, rhs: borrowed DataArray): owned AbstractDataArray {
+        var scale = rhs.quantity.toBaseUnit() / lhs.quantity.toBaseUnit();
+        select opt {
+            when "+" {
+                var arr = lhs.arr + scale * rhs.arr;
+                return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
+            }
+            when "-" { 
+                var arr = lhs.arr - scale * rhs.arr;
+                return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
+            }
+            otherwise {
+                halt("Unsupported operation on DataArray");
+            }
+        }
+    }
+
     proc toDType(type t) {
         select t {
             when int do
@@ -100,21 +134,55 @@ module DataArray {
             if (lhs.quantity != rhs.quantity) {
                 halt("Quantities are not same");
             }
+            
+            if (lhs.quantity.type == borrowed Quantity(0,0,0,0,1,0,0)) {
+                if (lhs.quantity.symbol() == "°C" && rhs.quantity.symbol() == "K") {
+                    var scale = lhs.quantity.toBaseUnit();
+                    var tempArr: [rhs.arr.domain] real = rhs.arr; 
+                    forall el in tempArr do
+                        el -= scale;
+                    return selOpt(opt, lhs, real, tempArr);
+                }
 
-            var scale = rhs.quantity.toBaseUnit() / lhs.quantity.toBaseUnit();
-            select opt {
-                when "+" {
-                    var arr = lhs.arr + scale * rhs.arr;
-                    return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
+                if (lhs.quantity.symbol() == "°C" && rhs.quantity.symbol() == "°F") {
+                    var tempArr: [rhs.arr.domain] real = rhs.arr; 
+                    forall el in tempArr do
+                        el = (el - 32) * 5/9;
+                    return selOpt(opt, lhs, real, tempArr);
                 }
-                when "-" { 
-                    var arr = lhs.arr - scale * rhs.arr;
-                    return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
+
+                if (lhs.quantity.symbol() == "°F" && rhs.quantity.symbol() == "K") {
+                    var scale = lhs.quantity.toBaseUnit();
+                    var tempArr: [rhs.arr.domain] real = rhs.arr; 
+                    forall el in tempArr do
+                        el = el * 1.8 - scale;
+                    return selOpt(opt, lhs, real, tempArr);
                 }
-                otherwise {
-                    halt("Unsupported operation on DataArray");
-                }
-            }
+
+                if (lhs.quantity.symbol() == "°F" && rhs.quantity.symbol() == "°C") {
+                    var tempArr: [rhs.arr.domain] real = rhs.arr; 
+                    forall el in tempArr do
+                        el = (el * 1.8) + 32;
+                    return selOpt(opt, lhs, real, tempArr);
+                }     
+
+                if (lhs.quantity.symbol() == "K" && rhs.quantity.symbol() == "°C") {
+                    var scale = rhs.quantity.toBaseUnit();
+                    var tempArr: [rhs.arr.domain] real = rhs.arr; 
+                    forall el in tempArr do
+                        el += scale;
+                    return selOpt(opt, lhs, real, tempArr);
+                }  
+
+                if (lhs.quantity.symbol() == "K" && rhs.quantity.symbol() == "°F") {
+                    var tempArr: [rhs.arr.domain] real = rhs.arr; 
+                    forall el in tempArr do
+                        el = (el - 32) * 5/9 + 273.15;
+                    return selOpt(opt, lhs, real, tempArr);
+                }                
+            } 
+            //when there is quantity other than Temperature
+            return selOpt(opt, lhs, rhs);               
         }
 
         override proc add(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
@@ -142,5 +210,5 @@ module DataArray {
 
     operator -(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray {
         return lhs.subtract(rhs);
-    }
+    }    
 }
