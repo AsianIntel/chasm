@@ -4,4 +4,7 @@ module SI {
     public use Mass;
     public use QTime as Time;
     public use Temperature;
+    public use Substance;
+    public use ElectricCurrent;
+    public use LuminousIntensity;
 }

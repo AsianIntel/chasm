@@ -6,7 +6,7 @@ module Quantity {
         param electric_current: int;
         param temperature: int;
         param substance: int;
-        param luminosity: int;
+        param luminousIntensity: int;
 
         proc toBaseUnit(): real {
             halt("Virtual Class method");
@@ -25,7 +25,7 @@ module Quantity {
             lhs.electric_current == rhs.electric_current &&
             lhs.temperature == rhs.temperature &&
             lhs.substance == rhs.substance &&
-            lhs.luminosity == rhs.luminosity
+            lhs.luminousIntensity == rhs.luminousIntensity
         );
     }
 
