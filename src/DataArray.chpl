@@ -1,41 +1,5 @@
 module DataArray {
-    private use Quantity;
-
-    enum DType {Int64, Real64, Bool, String};
-
-    proc selOpt(opt: string, lhs: borrowed DataArray, type eltType, ref tempArr: [] eltType): owned AbstractDataArray {
-        select opt {
-            when "+" {
-                var arr = lhs.arr + tempArr;
-                return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
-            }
-            when "-" { 
-                var arr = lhs.arr - tempArr;
-                return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
-            }
-            otherwise {
-                halt("Unsupported operation on DataArray");
-            }
-        }   
-        
-    }
-
-    proc selOpt(opt: string, lhs: borrowed DataArray, rhs: borrowed DataArray): owned AbstractDataArray {
-        var scale = rhs.quantity.toBaseUnit() / lhs.quantity.toBaseUnit();
-        select opt {
-            when "+" {
-                var arr = lhs.arr + scale * rhs.arr;
-                return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
-            }
-            when "-" { 
-                var arr = lhs.arr - scale * rhs.arr;
-                return new owned DataArray(arr.eltType, arr, lhs.dimensions, lhs.quantity);
-            }
-            otherwise {
-                halt("Unsupported operation on DataArray");
-            }
-        }
-    }
+    enum DType {Int64, Real64, Bool, String, Undefined};
 
     proc toDType(type t) {
         select t {
@@ -48,7 +12,7 @@ module DataArray {
             when string do 
                 return DType.String;
             otherwise
-                compilerError("only int, real, bool and string types are supported");
+                return DType.Undefined;
         }
     }
     
@@ -61,7 +25,7 @@ module DataArray {
             this.rank = rank;
         }
 
-        proc _op(opt: string, lhs): owned AbstractDataArray {
+        proc _add(lhs): owned AbstractDataArray {
             halt("Pure virtual method");
         }
 
@@ -69,11 +33,23 @@ module DataArray {
             halt("Pure virtual method");
         }
 
+        proc _subtract(lhs): owned AbstractDataArray {
+            halt("Pure virtual method");
+        }
+
         proc subtract(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
             halt("Pure virtual method");
         }
 
-        proc toUnits(newUnits: borrowed Quantity): owned AbstractDataArray {
+        proc _eq(lhs): bool {
+            halt("Pure virtual method");
+        }
+
+        proc eq(rhs: borrowed AbstractDataArray): bool {
+            halt("Pure virtual method");
+        }
+
+        proc convertTo(type to_convert): owned AbstractDataArray {
             halt("Pure virtual method");
         }
     }
@@ -85,11 +61,9 @@ module DataArray {
 
         var dom: domain(rank, stridable = stridable);
         var arr: [dom] eltType;
-
         var dimensions: domain(string);
-        var quantity: Quantity;
 
-        proc init(type eltType, size: domain, dimensions: domain(string), quantity: Quantity) {
+        proc init(type eltType, size: domain, dimensions: domain(string)) where isDefaultInitializable(eltType) {
             super.init(eltType, size.rank);
             this.eltType = eltType;
             this.rank = size.rank;
@@ -100,108 +74,87 @@ module DataArray {
             this.arr = arr;
 
             this.dimensions = dimensions;
-            this.quantity = quantity;
         }
 
-        proc init(type eltType, size: domain, dimensions: domain(string), quantity: borrowed Quantity, default_value: eltType) {
-            super.init(eltType, size.rank);
-            this.eltType = eltType;
+        proc init(size: domain, dimensions: domain(string), in default_value) where isDefaultInitializable(default_value) {
+            super.init(default_value.type, size.rank);
+            this.eltType = default_value.type;
             this.rank = size.rank;
             this.stridable = size.stridable;
             this.dom = size;
-
+            
             var arr: [size] eltType = default_value;
             this.arr = arr;
 
             this.dimensions = dimensions;
-            this.quantity = quantity;
         }
 
-        proc init(type eltType, ref arr: [] eltType, dimensions: domain(string), quantity: borrowed Quantity) {
-            super.init(eltType, arr.domain.rank);
-            this.eltType = eltType;
+        proc init(in arr, dimensions: domain(string)) {
+            super.init(arr.eltType, arr.domain.rank);
+            this.eltType = arr.eltType;
             this.rank = arr.domain.rank;
             this.stridable = arr.domain.stridable;
             this.dom = arr.domain;
+
             this.arr = arr;
+
             this.dimensions = dimensions;
-            this.quantity = quantity;
         }
 
-        override proc _op(opt: string, lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank {
+        override proc _add(lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank && isOperable(lhs, this) {
             var rhs: borrowed DataArray = this;
-            
-            if (lhs.quantity != rhs.quantity) {
-                halt("Quantities are not same");
-            }
-            
-            if (lhs.quantity.type == borrowed Quantity(0,0,0,0,1,0,0)) {
-                if (lhs.quantity.symbol() == "°C" && rhs.quantity.symbol() == "K") {
-                    var scale = lhs.quantity.toBaseUnit();
-                    var tempArr: [rhs.arr.domain] real = rhs.arr; 
-                    forall el in tempArr do
-                        el -= scale;
-                    return selOpt(opt, lhs, real, tempArr);
-                }
-
-                if (lhs.quantity.symbol() == "°C" && rhs.quantity.symbol() == "°F") {
-                    var tempArr: [rhs.arr.domain] real = rhs.arr; 
-                    forall el in tempArr do
-                        el = (el - 32) * 5/9;
-                    return selOpt(opt, lhs, real, tempArr);
-                }
-
-                if (lhs.quantity.symbol() == "°F" && rhs.quantity.symbol() == "K") {
-                    var scale = lhs.quantity.toBaseUnit();
-                    var tempArr: [rhs.arr.domain] real = rhs.arr; 
-                    forall el in tempArr do
-                        el = el * 1.8 - scale;
-                    return selOpt(opt, lhs, real, tempArr);
-                }
-
-                if (lhs.quantity.symbol() == "°F" && rhs.quantity.symbol() == "°C") {
-                    var tempArr: [rhs.arr.domain] real = rhs.arr; 
-                    forall el in tempArr do
-                        el = (el * 1.8) + 32;
-                    return selOpt(opt, lhs, real, tempArr);
-                }     
-
-                if (lhs.quantity.symbol() == "K" && rhs.quantity.symbol() == "°C") {
-                    var scale = rhs.quantity.toBaseUnit();
-                    var tempArr: [rhs.arr.domain] real = rhs.arr; 
-                    forall el in tempArr do
-                        el += scale;
-                    return selOpt(opt, lhs, real, tempArr);
-                }  
-
-                if (lhs.quantity.symbol() == "K" && rhs.quantity.symbol() == "°F") {
-                    var tempArr: [rhs.arr.domain] real = rhs.arr; 
-                    forall el in tempArr do
-                        el = (el - 32) * 5/9 + 273.15;
-                    return selOpt(opt, lhs, real, tempArr);
-                }                
-            } 
-            //when there is quantity other than Temperature
-            return selOpt(opt, lhs, rhs);               
+            var arr = lhs.arr + rhs.arr;
+            return new owned DataArray(arr, lhs.dimensions);
         }
 
         override proc add(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
-            return rhs._op("+", this);
+            return rhs._add(this);
+        }
+
+        override proc _subtract(lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank && isOperable(lhs, this) {
+            var rhs: borrowed DataArray = this;
+            var arr = lhs.arr - rhs.arr;
+            return new owned DataArray(arr, lhs.dimensions);
         }
 
         override proc subtract(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
-            return rhs._op("-", this);
+            return rhs._subtract(this);
         }
 
-        override proc toUnits(newUnits: borrowed Quantity): owned AbstractDataArray {
-            if (this.quantity == newUnits) {
-                var scale = this.quantity.toBaseUnit() / newUnits.toBaseUnit();
-                var arr = scale * this.arr;
-                return new owned DataArray(arr.eltType, arr, this.dimensions, newUnits);
-            } else {
-                halt("Quantities are not same");
-            }           
+        override proc _eq(lhs: borrowed DataArray): bool where isOperable(lhs, this) {
+            var rhs: borrowed DataArray = this;
+
+            if lhs.arr._value == rhs.arr._value then
+                return true;
+
+            if lhs.rank != rhs.rank then
+                return false;
+
+            if lhs.dom.size: uint != rhs.dom.size: uint then
+                return false;
+
+            if isRectangularDom(lhs.dom) && isRectangularDom(rhs.dom) {
+                for d in 0..#rhs.rank do
+                    if rhs.dom.dim(d).size: uint != lhs.dom.dim(d).size: uint then
+                        return false;
+            }
+
+            var ret = true;
+            forall (l, r) in zip(lhs.arr, rhs.arr) with (&& reduce ret) do
+                ret &&= (l == r);
+            return ret;
         }
+
+        override proc eq(rhs: borrowed AbstractDataArray): bool {
+            return rhs._eq(this);
+        }
+    }
+
+    proc isOperable(lhs: borrowed DataArray, rhs: borrowed DataArray) param {
+        if !isPrimitive(lhs.eltType) && !isPrimitive(rhs.eltType) {
+            return lhs.arr[lhs.dom.alignedLow].dims(rhs.arr[rhs.dom.alignedLow]);
+        }
+        return isCoercible(lhs.eltType, rhs.eltType);
     }
 
     operator +(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray {
@@ -210,5 +163,13 @@ module DataArray {
 
     operator -(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray {
         return lhs.subtract(rhs);
+    }
+
+    operator ==(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): bool {
+        return lhs.eq(rhs);
+    } 
+
+    operator !=(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): bool {
+        return !(lhs == rhs);
     }    
 }
