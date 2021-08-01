@@ -76,7 +76,7 @@ module DataArray {
             this.dimensions = dimensions;
         }
 
-        proc init(size: domain, dimensions: domain(string), in default_value) where isDefaultInitializable(default_value) {
+        proc init(size: domain, dimensions: domain(string), in default_value) where isDefaultInitializable(default_value.type) {
             super.init(default_value.type, size.rank);
             this.eltType = default_value.type;
             this.rank = size.rank;
