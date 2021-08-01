@@ -1,0 +1,87 @@
+.. default-domain:: chpl
+
+.. module:: DataArray
+
+DataArray
+=========
+**Usage**
+
+.. code-block:: chapel
+
+   use DataArray;
+
+
+or
+
+.. code-block:: chapel
+
+   import DataArray;
+
+.. enum:: enum DType { Int64, Real64, Bool, String, Undefined }
+
+.. function:: proc toDType(type t)
+
+.. class:: AbstractDataArray
+
+   .. attribute:: var d_type: DType
+
+   .. attribute:: const rank: int
+
+   .. method:: proc init(type d_type, rank: int)
+
+   .. method:: proc _add(lhs): owned AbstractDataArray
+
+   .. method:: proc add(rhs: borrowed AbstractDataArray): owned AbstractDataArray
+
+   .. method:: proc _subtract(lhs): owned AbstractDataArray
+
+   .. method:: proc subtract(rhs: borrowed AbstractDataArray): owned AbstractDataArray
+
+   .. method:: proc _eq(lhs): bool
+
+   .. method:: proc eq(rhs: borrowed AbstractDataArray): bool
+
+   .. method:: proc convertTo(type to_convert): owned AbstractDataArray
+
+.. class:: DataArray : AbstractDataArray
+
+   .. attribute:: type eltType
+
+   .. attribute:: param rank: int
+
+   .. attribute:: param stridable: bool
+
+   .. attribute:: var dom: domain(rank, stridable = stridable)
+
+   .. attribute:: var arr: [dom] eltType
+
+   .. attribute:: var dimensions: domain(string)
+
+   .. method:: proc init(type eltType, size: domain, dimensions: domain(string))
+
+   .. method:: proc init(size: domain, dimensions: domain(string), in default_value)
+
+   .. method:: proc init(in arr, dimensions: domain(string))
+
+   .. method:: override proc _add(lhs: borrowed DataArray): owned AbstractDataArray
+
+   .. method:: override proc add(rhs: borrowed AbstractDataArray): owned AbstractDataArray
+
+   .. method:: override proc _subtract(lhs: borrowed DataArray): owned AbstractDataArray
+
+   .. method:: override proc subtract(rhs: borrowed AbstractDataArray): owned AbstractDataArray
+
+   .. method:: override proc _eq(lhs: borrowed DataArray): bool
+
+   .. method:: override proc eq(rhs: borrowed AbstractDataArray): bool
+
+.. function:: proc isOperable(lhs: borrowed DataArray, rhs: borrowed DataArray) param
+
+.. function:: proc +(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray
+
+.. function:: proc -(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray
+
+.. function:: proc ==(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): bool
+
+.. function:: proc !=(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): bool
+

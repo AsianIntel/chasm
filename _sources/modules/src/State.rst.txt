@@ -1,0 +1,29 @@
+.. default-domain:: chpl
+
+.. module:: State
+
+State
+=====
+**Usage**
+
+.. code-block:: chapel
+
+   use State;
+
+
+or
+
+.. code-block:: chapel
+
+   import State;
+
+.. class:: State
+
+   .. attribute:: var time: int
+
+   .. attribute:: var data_map: map(string, shared AbstractDataArray)
+
+   .. method:: proc add(property: string, array: shared DataArray)
+
+   .. method:: proc getValue(property: string)
+

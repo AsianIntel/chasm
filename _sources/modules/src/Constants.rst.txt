@@ -1,0 +1,31 @@
+.. default-domain:: chpl
+
+.. module:: Constants
+
+Constants
+=========
+**Usage**
+
+.. code-block:: chapel
+
+   use Constants;
+
+
+or
+
+.. code-block:: chapel
+
+   import Constants;
+
+.. data:: var defaultConstants: map(string, real)
+
+.. class:: ConstantDict
+
+   .. attribute:: var dict: map(string, real)
+
+   .. method:: proc init(dictionary: map(string, real))
+
+   .. method:: proc getConstant(constantName: string)
+
+   .. method:: proc setConstant(constantName: string, constantValue: real)
+
