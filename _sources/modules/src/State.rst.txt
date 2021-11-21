@@ -19,11 +19,22 @@ or
 
 .. class:: State
 
+   A container holding a map of ``DataArray`` indicating the various properties of the state model. 
+
+
    .. attribute:: var time: int
+
+      An int value indicating the timestep of the state. 
 
    .. attribute:: var data_map: map(string, shared AbstractDataArray)
 
+      The map containing the ``DataArray`` with a string as the key. 
+
    .. method:: proc add(property: string, array: shared DataArray)
 
+      Method to add a ``(string, DataArray)`` pair to the state. 
+
    .. method:: proc getValue(property: string)
+
+      Method to get the `DataArray` associated with the given property 
 

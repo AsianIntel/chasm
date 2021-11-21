@@ -172,25 +172,30 @@
 <dl class="chpl class">
 <dt id="State.State">
 <em class="property">class </em><code class="sig-name descname">State</code><a class="headerlink" href="#State.State" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="chpl attribute">
+<dd><p>A container holding a map of <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> indicating the various properties of the state model.</p>
+<dl class="chpl attribute">
 <dt id="State.State.time">
 <em class="property">var </em><code class="sig-name descname">time</code>: int<a class="headerlink" href="#State.State.time" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>An int value indicating the timestep of the state.</p>
+</dd></dl>
 
 <dl class="chpl attribute">
 <dt id="State.State.data_map">
 <em class="property">var </em><code class="sig-name descname">data_map</code>: map(string, shared AbstractDataArray)<a class="headerlink" href="#State.State.data_map" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The map containing the <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> with a string as the key.</p>
+</dd></dl>
 
 <dl class="chpl method">
 <dt id="State.State.add">
 <em class="property">proc </em><code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">property: string</em>, <em class="sig-param">array: shared DataArray</em><span class="sig-paren">)</span><a class="headerlink" href="#State.State.add" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Method to add a <code class="docutils literal notranslate"><span class="pre">(string,</span> <span class="pre">DataArray)</span></code> pair to the state.</p>
+</dd></dl>
 
 <dl class="chpl method">
 <dt id="State.State.getValue">
 <em class="property">proc </em><code class="sig-name descname">getValue</code><span class="sig-paren">(</span><em class="sig-param">property: string</em><span class="sig-paren">)</span><a class="headerlink" href="#State.State.getValue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Method to get the <cite>DataArray</cite> associated with the given property</p>
+</dd></dl>
 
 </dd></dl>
 
