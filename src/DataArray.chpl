@@ -1,6 +1,8 @@
 module DataArray {
+    pragma "no doc"
     enum DType {Int64, Real64, Bool, String, Undefined};
 
+    pragma "no doc"
     proc toDType(type t) {
         select t {
             when int do
@@ -15,16 +17,21 @@ module DataArray {
                 return DType.Undefined;
         }
     }
-    
+
     class AbstractDataArray {
+        pragma "no doc"
         var d_type: DType;
+
+        pragma "no doc"
         const rank: int;
 
+        pragma "no doc"
         proc init(type d_type, rank: int) {
             this.d_type = toDType(d_type);
             this.rank = rank;
         }
 
+        pragma "no doc"
         proc _add(lhs): owned AbstractDataArray {
             halt("Pure virtual method");
         }
@@ -33,6 +40,7 @@ module DataArray {
             halt("Pure virtual method");
         }
 
+        pragma "no doc"
         proc _subtract(lhs): owned AbstractDataArray {
             halt("Pure virtual method");
         }
@@ -41,6 +49,7 @@ module DataArray {
             halt("Pure virtual method");
         }
 
+        pragma "no doc"
         proc _eq(lhs): bool {
             halt("Pure virtual method");
         }
@@ -49,20 +58,35 @@ module DataArray {
             halt("Pure virtual method");
         }
 
+        pragma "no doc"
         proc convertTo(type to_convert): owned AbstractDataArray {
             halt("Pure virtual method");
         }
     }
 
+    /*
+    A DataArray is a container over an array with additional support for dimension labels for each axis of the array.
+    */
     class DataArray: AbstractDataArray {
+        /* The type of elements contained in the DataArray. */
         type eltType;
+
+        /* A int paramter indicating the rank of the DataArray. */
         param rank: int;
+
+        /* A bool parameter indicating whether any of the domain’s dimensions will be characterized by a strided range */
         param stridable: bool;
 
+        /* The domain of the Chapel array owned by the DataArray.
+           Refer to `the Chapel docs <https://chapel-lang.org/docs/primers/domains.html>`_ for more information on domains. 
+        */
         var dom: domain(rank, stridable = stridable);
         var arr: [dom] eltType;
+
+        /* An index space indicating the labels for each of the axis of the array owned by the DataArray. */
         var dimensions: domain(string);
 
+        /* Initializes a DataArray with the given size and value as the default value of the given type. */
         proc init(type eltType, size: domain, dimensions: domain(string)) where isDefaultInitializable(eltType) {
             super.init(eltType, size.rank);
             this.eltType = eltType;
@@ -76,6 +100,7 @@ module DataArray {
             this.dimensions = dimensions;
         }
 
+        /* Initializes a DataArray with the given size and value as the given value. */
         proc init(size: domain, dimensions: domain(string), in default_value) where isDefaultInitializable(default_value.type) {
             super.init(default_value.type, size.rank);
             this.eltType = default_value.type;
@@ -89,6 +114,7 @@ module DataArray {
             this.dimensions = dimensions;
         }
 
+        /* Initializes a DataArray with the given array. */
         proc init(in arr, dimensions: domain(string)) {
             super.init(arr.eltType, arr.domain.rank);
             this.eltType = arr.eltType;
@@ -101,26 +127,37 @@ module DataArray {
             this.dimensions = dimensions;
         }
 
+        pragma "no doc"
         override proc _add(lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank && isOperable(lhs, this) {
             var rhs: borrowed DataArray = this;
             var arr = lhs.arr + rhs.arr;
             return new owned DataArray(arr, lhs.dimensions);
         }
 
+        /* Utility method to add two ``DataArray``. 
+        
+          **Note**: This can be chained with other operators. 
+        */
         override proc add(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
             return rhs._add(this);
         }
 
+        pragma "no doc"
         override proc _subtract(lhs: borrowed DataArray): owned AbstractDataArray where this.rank == lhs.rank && isOperable(lhs, this) {
             var rhs: borrowed DataArray = this;
             var arr = lhs.arr - rhs.arr;
             return new owned DataArray(arr, lhs.dimensions);
         }
 
+        /* Utility method to subtract two ``DataArray``. 
+        
+          **Note**: This can be chained with other operators. 
+        */
         override proc subtract(rhs: borrowed AbstractDataArray): owned AbstractDataArray {
             return rhs._subtract(this);
         }
 
+        pragma "no doc"
         override proc _eq(lhs: borrowed DataArray): bool where isOperable(lhs, this) {
             var rhs: borrowed DataArray = this;
 
@@ -145,11 +182,13 @@ module DataArray {
             return ret;
         }
 
+        /* Utility method to check if two ``DataArray`` are equal. */
         override proc eq(rhs: borrowed AbstractDataArray): bool {
             return rhs._eq(this);
         }
     }
 
+    pragma "no doc"
     proc isOperable(lhs: borrowed DataArray, rhs: borrowed DataArray) param {
         if !isPrimitive(lhs.eltType) && !isPrimitive(rhs.eltType) {
             return lhs.arr[lhs.dom.alignedLow].dims(rhs.arr[rhs.dom.alignedLow]);

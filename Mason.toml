@@ -1,8 +1,7 @@
-
 [brick]
-name = "sympl"
+name = "chasm"
 version = "0.1.0"
-chplVersion = "1.24.1"
+chplVersion = "1.25.0"
 license = "MIT"
 
 [dependencies]
