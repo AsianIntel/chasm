@@ -17,65 +17,74 @@ or
 
    import DataArray;
 
-.. enum:: enum DType { Int64, Real64, Bool, String, Undefined }
-
-.. function:: proc toDType(type t)
-
 .. class:: AbstractDataArray
-
-   .. attribute:: var d_type: DType
-
-   .. attribute:: const rank: int
-
-   .. method:: proc init(type d_type, rank: int)
-
-   .. method:: proc _add(lhs): owned AbstractDataArray
 
    .. method:: proc add(rhs: borrowed AbstractDataArray): owned AbstractDataArray
 
-   .. method:: proc _subtract(lhs): owned AbstractDataArray
-
    .. method:: proc subtract(rhs: borrowed AbstractDataArray): owned AbstractDataArray
-
-   .. method:: proc _eq(lhs): bool
 
    .. method:: proc eq(rhs: borrowed AbstractDataArray): bool
 
-   .. method:: proc convertTo(type to_convert): owned AbstractDataArray
-
 .. class:: DataArray : AbstractDataArray
+
+   
+   A DataArray is a container over an array with additional support for dimension labels for each axis of the array.
+   
+
 
    .. attribute:: type eltType
 
+      The type of elements contained in the DataArray. 
+
    .. attribute:: param rank: int
+
+      A int paramter indicating the rank of the DataArray. 
 
    .. attribute:: param stridable: bool
 
+      A bool parameter indicating whether any of the domain’s dimensions will be characterized by a strided range 
+
    .. attribute:: var dom: domain(rank, stridable = stridable)
+
+      The domain of the Chapel array owned by the DataArray.
+      Refer to `the Chapel docs <https://chapel-lang.org/docs/primers/domains.html>`_ for more information on domains. 
+      
 
    .. attribute:: var arr: [dom] eltType
 
    .. attribute:: var dimensions: domain(string)
 
+      An index space indicating the labels for each of the axis of the array owned by the DataArray. 
+
    .. method:: proc init(type eltType, size: domain, dimensions: domain(string))
+
+      Initializes a DataArray with the given size and value as the default value of the given type. 
 
    .. method:: proc init(size: domain, dimensions: domain(string), in default_value)
 
+      Initializes a DataArray with the given size and value as the given value. 
+
    .. method:: proc init(in arr, dimensions: domain(string))
 
-   .. method:: override proc _add(lhs: borrowed DataArray): owned AbstractDataArray
+      Initializes a DataArray with the given array. 
 
    .. method:: override proc add(rhs: borrowed AbstractDataArray): owned AbstractDataArray
 
-   .. method:: override proc _subtract(lhs: borrowed DataArray): owned AbstractDataArray
+      Utility method to add two ``DataArray``. 
+      
+      **Note**: This can be chained with other operators. 
+      
 
    .. method:: override proc subtract(rhs: borrowed AbstractDataArray): owned AbstractDataArray
 
-   .. method:: override proc _eq(lhs: borrowed DataArray): bool
+      Utility method to subtract two ``DataArray``. 
+      
+      **Note**: This can be chained with other operators. 
+      
 
    .. method:: override proc eq(rhs: borrowed AbstractDataArray): bool
 
-.. function:: proc isOperable(lhs: borrowed DataArray, rhs: borrowed DataArray) param
+      Utility method to check if two ``DataArray`` are equal. 
 
 .. function:: proc +(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray
 

@@ -1,0 +1,19 @@
+.. default-domain:: chpl
+
+.. module:: chasm
+
+chasm
+=====
+**Usage**
+
+.. code-block:: chapel
+
+   use chasm;
+
+
+or
+
+.. code-block:: chapel
+
+   import chasm;
+
