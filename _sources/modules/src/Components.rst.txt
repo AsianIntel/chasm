@@ -1,0 +1,37 @@
+.. default-domain:: chpl
+
+.. module:: Components
+
+Components
+==========
+**Usage**
+
+.. code-block:: chapel
+
+   use Components;
+
+
+or
+
+.. code-block:: chapel
+
+   import Components;
+
+.. class:: InputProperties
+
+   .. attribute:: var unit: string
+
+   .. attribute:: var dims_dom: domain
+
+   .. attribute:: var dims: [dims_dom] string
+
+   .. attribute:: var name: string
+
+   .. method:: proc init(unit: string, dims, name: string)
+
+.. class:: TendencyComponent
+
+   .. attribute:: var input_properties
+
+   .. method:: proc init(in input_properties)
+
