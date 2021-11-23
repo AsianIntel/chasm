@@ -1,8 +1,9 @@
 [brick]
 name = "chasm"
-version = "0.1.0"
+version = "0.0.1"
 chplVersion = "1.25.0"
 license = "MIT"
+compopts = "-M units/src"
 
 [dependencies]
 
