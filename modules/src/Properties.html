@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Components &mdash; chpldoc 0.0.1 documentation</title>
+  <title>Properties &mdash; chpldoc 0.0.1 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Constants" href="Constants.html" />
-    <link rel="prev" title="chpldoc documentation" href="../../index.html" /> 
+    <link rel="next" title="State" href="State.html" />
+    <link rel="prev" title="DataArray" href="DataArray.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,10 +90,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">chpldoc documentation</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Components.html">Components</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataArray.html">DataArray</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Properties.html">Properties</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="State.html">State</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chasm.html">chasm</a></li>
 </ul>
@@ -142,13 +142,13 @@
     
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Components</li>
+      <li>Properties</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/modules/src/Components.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/modules/src/Properties.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -161,57 +161,62 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="module-Components"></span><div class="section" id="components">
-<h1>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h1>
+  <span class="target" id="module-Properties"></span><div class="section" id="properties">
+<h1>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h1>
 <p><strong>Usage</strong></p>
-<div class="highlight-chapel notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">Components</span><span class="p">;</span>
+<div class="highlight-chapel notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">Properties</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-chapel notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="nx">Components</span><span class="p">;</span>
+<div class="highlight-chapel notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="nx">Properties</span><span class="p">;</span>
 </pre></div>
 </div>
+<dl class="chpl enum">
+<dt id="Properties.UType">
+<em class="property">enum </em><code class="sig-name descname">UType</code> { Length, Mass, Time, ECurrent, Temp, Substance, Lum, DerivedUnit }<a class="headerlink" href="#Properties.UType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl function">
+<dt id="Properties.toUType">
+<em class="property">proc </em><code class="sig-name descname">toUType</code><span class="sig-paren">(</span><em class="sig-param">type t</em><span class="sig-paren">)</span><a class="headerlink" href="#Properties.toUType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="chpl class">
-<dt id="Components.InputProperties">
-<em class="property">class </em><code class="sig-name descname">InputProperties</code><a class="headerlink" href="#Components.InputProperties" title="Permalink to this definition">¶</a></dt>
+<dt id="Properties.AbstractProperties">
+<em class="property">class </em><code class="sig-name descname">AbstractProperties</code><a class="headerlink" href="#Properties.AbstractProperties" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="chpl attribute">
-<dt id="Components.InputProperties.unit">
-<em class="property">var </em><code class="sig-name descname">unit</code>: string<a class="headerlink" href="#Components.InputProperties.unit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="chpl attribute">
-<dt id="Components.InputProperties.dims_dom">
-<em class="property">var </em><code class="sig-name descname">dims_dom</code>: domain<a class="headerlink" href="#Components.InputProperties.dims_dom" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="chpl attribute">
-<dt id="Components.InputProperties.dims">
-<em class="property">var </em><code class="sig-name descname">dims</code>: [dims_dom] string<a class="headerlink" href="#Components.InputProperties.dims" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="chpl attribute">
-<dt id="Components.InputProperties.name">
-<em class="property">var </em><code class="sig-name descname">name</code>: string<a class="headerlink" href="#Components.InputProperties.name" title="Permalink to this definition">¶</a></dt>
+<dt id="Properties.AbstractProperties.u_type">
+<em class="property">var </em><code class="sig-name descname">u_type</code>: UType<a class="headerlink" href="#Properties.AbstractProperties.u_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="chpl method">
-<dt id="Components.InputProperties.init">
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">unit: string</em>, <em class="sig-param">dims</em>, <em class="sig-param">name: string</em><span class="sig-paren">)</span><a class="headerlink" href="#Components.InputProperties.init" title="Permalink to this definition">¶</a></dt>
+<dt id="Properties.AbstractProperties.init">
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">type u_type</em><span class="sig-paren">)</span><a class="headerlink" href="#Properties.AbstractProperties.init" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="chpl class">
-<dt id="Components.TendencyComponent">
-<em class="property">class </em><code class="sig-name descname">TendencyComponent</code><a class="headerlink" href="#Components.TendencyComponent" title="Permalink to this definition">¶</a></dt>
+<dt id="Properties.Properties">
+<em class="property">class </em><code class="sig-name descname">Properties</code>: AbstractProperties<a class="headerlink" href="#Properties.Properties" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="chpl attribute">
-<dt id="Components.TendencyComponent.input_properties">
-<em class="property">var </em><code class="sig-name descname">input_properties</code><a class="headerlink" href="#Components.TendencyComponent.input_properties" title="Permalink to this definition">¶</a></dt>
+<dt id="Properties.Properties.unitType">
+<em class="property">type </em><code class="sig-name descname">unitType</code><a class="headerlink" href="#Properties.Properties.unitType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl attribute">
+<dt id="Properties.Properties.dims">
+<em class="property">var </em><code class="sig-name descname">dims</code>: domain(string)<a class="headerlink" href="#Properties.Properties.dims" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="chpl method">
-<dt id="Components.TendencyComponent.init">
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">in input_properties</em><span class="sig-paren">)</span><a class="headerlink" href="#Components.TendencyComponent.init" title="Permalink to this definition">¶</a></dt>
+<dt id="Properties.Properties.init">
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">labels: domain(string)</em>, <em class="sig-param">type unitType</em><span class="sig-paren">)</span><a class="headerlink" href="#Properties.Properties.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl method">
+<dt id="Properties.Properties.printFields">
+<em class="property">proc </em><code class="sig-name descname">printFields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Properties.Properties.printFields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -226,10 +231,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Constants.html" class="btn btn-neutral float-right" title="Constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="State.html" class="btn btn-neutral float-right" title="State" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../../index.html" class="btn btn-neutral float-left" title="chpldoc documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="DataArray.html" class="btn btn-neutral float-left" title="DataArray" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

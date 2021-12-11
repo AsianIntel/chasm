@@ -1,0 +1,39 @@
+.. default-domain:: chpl
+
+.. module:: Properties
+
+Properties
+==========
+**Usage**
+
+.. code-block:: chapel
+
+   use Properties;
+
+
+or
+
+.. code-block:: chapel
+
+   import Properties;
+
+.. enum:: enum UType { Length, Mass, Time, ECurrent, Temp, Substance, Lum, DerivedUnit }
+
+.. function:: proc toUType(type t)
+
+.. class:: AbstractProperties
+
+   .. attribute:: var u_type: UType
+
+   .. method:: proc init(type u_type)
+
+.. class:: Properties : AbstractProperties
+
+   .. attribute:: type unitType
+
+   .. attribute:: var dims: domain(string)
+
+   .. method:: proc init(labels: domain(string), type unitType)
+
+   .. method:: proc printFields()
+
