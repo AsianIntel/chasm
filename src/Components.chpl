@@ -1,23 +1,16 @@
 module Components {
-    class InputProperties {
-        var unit: string;
-        var dims_dom: domain;
-        var dims: [dims_dom] string;
-        var name: string;
-
-        proc init(unit: string, dims, name: string) {
-            this.unit = unit;
-            this.dims_dom = dims.domain;
-            this.dims = dims;
-            this.name = name;
-        }
-    }
+    private use Properties;
+    private use Map;
 
     class TendencyComponent {
-        var input_properties;
-
-        proc init(in input_properties) {
-            this.input_properties = input_properties;
-        }
+        var input_properties: map(string, shared AbstractProperties);
+        var tendency_properties: map(string, shared AbstractProperties);
+        var diagnostic_properties: map(string, shared AbstractProperties);
+        
+        proc init(in inputProperties, in tendencyProperties, in diagnosticProperties) {
+            this.input_properties = inputProperties;
+            this.tendency_properties = tendencyProperties;
+            this.diagnostic_properties = diagnosticProperties;
+        }       
     }
 }
