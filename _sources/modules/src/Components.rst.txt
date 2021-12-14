@@ -17,21 +17,13 @@ or
 
    import Components;
 
-.. class:: InputProperties
-
-   .. attribute:: var unit: string
-
-   .. attribute:: var dims_dom: domain
-
-   .. attribute:: var dims: [dims_dom] string
-
-   .. attribute:: var name: string
-
-   .. method:: proc init(unit: string, dims, name: string)
-
 .. class:: TendencyComponent
 
-   .. attribute:: var input_properties
+   .. attribute:: var input_properties: map(string, shared AbstractProperties)
 
-   .. method:: proc init(in input_properties)
+   .. attribute:: var tendency_properties: map(string, shared AbstractProperties)
+
+   .. attribute:: var diagnostic_properties: map(string, shared AbstractProperties)
+
+   .. method:: proc init(in inputProperties, in tendencyProperties, in diagnosticProperties)
 
