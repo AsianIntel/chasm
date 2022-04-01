@@ -171,37 +171,12 @@
 <div class="highlight-chapel notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="nx">Properties</span><span class="p">;</span>
 </pre></div>
 </div>
-<dl class="chpl enum">
-<dt id="Properties.UType">
-<em class="property">enum </em><code class="sig-name descname">UType</code> { Length, Mass, Time, ECurrent, Temp, Substance, Lum, DerivedUnit }<a class="headerlink" href="#Properties.UType" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="chpl function">
-<dt id="Properties.toUType">
-<em class="property">proc </em><code class="sig-name descname">toUType</code><span class="sig-paren">(</span><em class="sig-param">type t</em><span class="sig-paren">)</span><a class="headerlink" href="#Properties.toUType" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="chpl class">
-<dt id="Properties.AbstractProperties">
-<em class="property">class </em><code class="sig-name descname">AbstractProperties</code><a class="headerlink" href="#Properties.AbstractProperties" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="chpl attribute">
-<dt id="Properties.AbstractProperties.u_type">
-<em class="property">var </em><code class="sig-name descname">u_type</code>: UType<a class="headerlink" href="#Properties.AbstractProperties.u_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="chpl method">
-<dt id="Properties.AbstractProperties.init">
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">type u_type</em><span class="sig-paren">)</span><a class="headerlink" href="#Properties.AbstractProperties.init" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <dl class="chpl class">
 <dt id="Properties.Properties">
-<em class="property">class </em><code class="sig-name descname">Properties</code>: AbstractProperties<a class="headerlink" href="#Properties.Properties" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">Properties</code><a class="headerlink" href="#Properties.Properties" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="chpl attribute">
-<dt id="Properties.Properties.unitType">
-<em class="property">type </em><code class="sig-name descname">unitType</code><a class="headerlink" href="#Properties.Properties.unitType" title="Permalink to this definition">¶</a></dt>
+<dt id="Properties.Properties.unit">
+<em class="property">var </em><code class="sig-name descname">unit</code>: UnitMarker<a class="headerlink" href="#Properties.Properties.unit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="chpl attribute">
@@ -211,12 +186,7 @@
 
 <dl class="chpl method">
 <dt id="Properties.Properties.init">
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">labels: domain(string)</em>, <em class="sig-param">type unitType</em><span class="sig-paren">)</span><a class="headerlink" href="#Properties.Properties.init" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="chpl method">
-<dt id="Properties.Properties.printFields">
-<em class="property">proc </em><code class="sig-name descname">printFields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Properties.Properties.printFields" title="Permalink to this definition">¶</a></dt>
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">labels: domain(string)</em>, <em class="sig-param">unit: UnitMarker</em><span class="sig-paren">)</span><a class="headerlink" href="#Properties.Properties.init" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
