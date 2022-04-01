@@ -191,7 +191,7 @@ module DataArray {
     pragma "no doc"
     proc isOperable(lhs: borrowed DataArray, rhs: borrowed DataArray) param {
         if !isPrimitive(lhs.eltType) && !isPrimitive(rhs.eltType) {
-            return lhs.arr[lhs.dom.alignedLow].dims(rhs.arr[rhs.dom.alignedLow]);
+            return lhs.arr[lhs.dom.alignedLow].checkDims(rhs.arr[rhs.dom.alignedLow]);
         }
         return isCoercible(lhs.eltType, rhs.eltType);
     }
