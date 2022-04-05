@@ -17,3 +17,21 @@ or
 
    import Components;
 
+.. class:: TendencyComponent
+
+   .. attribute:: var input_properties: map(string, Properties)
+
+   .. attribute:: var tendency_properties: map(string, Properties)
+
+   .. attribute:: var diagnostic_properties: map(string, Properties)
+
+   .. method:: proc init(input_properties: map(string, Properties), tendency_properties: map(string, Properties), diagnostic_properties: map(string, Properties))
+
+.. class:: DiagnosticComponent
+
+   .. attribute:: var input_properties: map(string, Properties)
+
+   .. attribute:: var diagnostic_properties: map(string, Properties)
+
+   .. method:: proc init(input_properties: map(string, Properties), diagnostic_properties: map(string, Properties))
+
