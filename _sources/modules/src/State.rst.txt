@@ -34,7 +34,7 @@ or
 
       Method to add a ``(string, DataArray)`` pair to the state. 
 
-   .. method:: proc getValue(property: string)
+   .. method:: proc getValue(property: string) throws
 
       Method to get the `DataArray` associated with the given property 
 
