@@ -16,7 +16,7 @@ module State {
         }
 
         /* Method to get the `DataArray` associated with the given property */
-        proc getValue(property: string) {
+        proc getValue(property: string) throws {
             return this.data_map.getValue(property);
         }
     }

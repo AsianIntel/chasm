@@ -170,7 +170,7 @@ module DataArray {
             if lhs.dom.size: uint != rhs.dom.size: uint then
                 return false;
 
-            if isRectangularDom(lhs.dom) && isRectangularDom(rhs.dom) {
+            if lhs.dom.isRectangular() && rhs.dom.isRectangular() {
                 for d in 0..#rhs.rank do
                     if rhs.dom.dim(d).size: uint != lhs.dom.dim(d).size: uint then
                         return false;
