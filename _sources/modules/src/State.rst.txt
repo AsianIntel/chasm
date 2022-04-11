@@ -30,9 +30,13 @@ or
 
       The map containing the ``DataArray`` with a string as the key. 
 
-   .. method:: proc add(property: string, array: shared DataArray)
+   .. method:: proc add(property: string, array: shared DataArray1)
 
       Method to add a ``(string, DataArray)`` pair to the state. 
+
+   .. method:: proc add(property: string, array: shared DataArray2)
+
+   .. method:: proc add(property: string, array: shared DataArray3)
 
    .. method:: proc getValue(property: string) throws
 

@@ -192,48 +192,36 @@
 </dd></dl>
 
 <dl class="chpl class">
-<dt id="DataArray.DataArray">
-<em class="property">class </em><code class="sig-name descname">DataArray</code>: AbstractDataArray<a class="headerlink" href="#DataArray.DataArray" title="Permalink to this definition">¶</a></dt>
+<dt id="DataArray.DataArray1">
+<em class="property">class </em><code class="sig-name descname">DataArray1</code>: AbstractDataArray<a class="headerlink" href="#DataArray.DataArray1" title="Permalink to this definition">¶</a></dt>
 <dd><p>A DataArray is a container over an array with additional support for dimension labels for each axis of the array.</p>
 <dl class="chpl attribute">
-<dt id="DataArray.DataArray.eltType">
-<em class="property">type </em><code class="sig-name descname">eltType</code><a class="headerlink" href="#DataArray.DataArray.eltType" title="Permalink to this definition">¶</a></dt>
+<dt id="DataArray.DataArray1.eltType">
+<em class="property">type </em><code class="sig-name descname">eltType</code><a class="headerlink" href="#DataArray.DataArray1.eltType" title="Permalink to this definition">¶</a></dt>
 <dd><p>The type of elements contained in the DataArray.</p>
 </dd></dl>
 
 <dl class="chpl attribute">
-<dt id="DataArray.DataArray.rank">
-<em class="property">param </em><code class="sig-name descname">rank</code>: int<a class="headerlink" href="#DataArray.DataArray.rank" title="Permalink to this definition">¶</a></dt>
-<dd><p>A int paramter indicating the rank of the DataArray.</p>
-</dd></dl>
-
-<dl class="chpl attribute">
-<dt id="DataArray.DataArray.stridable">
-<em class="property">param </em><code class="sig-name descname">stridable</code>: bool<a class="headerlink" href="#DataArray.DataArray.stridable" title="Permalink to this definition">¶</a></dt>
-<dd><p>A bool parameter indicating whether any of the domain’s dimensions will be characterized by a strided range</p>
-</dd></dl>
-
-<dl class="chpl attribute">
-<dt id="DataArray.DataArray.dom">
-<em class="property">var </em><code class="sig-name descname">dom</code>: domain(rank, stridable = stridable)<a class="headerlink" href="#DataArray.DataArray.dom" title="Permalink to this definition">¶</a></dt>
+<dt id="DataArray.DataArray1.dom">
+<em class="property">var </em><code class="sig-name descname">dom</code>: domain(1, stridable = false)<a class="headerlink" href="#DataArray.DataArray1.dom" title="Permalink to this definition">¶</a></dt>
 <dd><p>The domain of the Chapel array owned by the DataArray.
 Refer to <a class="reference external" href="https://chapel-lang.org/docs/primers/domains.html">the Chapel docs</a> for more information on domains.</p>
 </dd></dl>
 
 <dl class="chpl attribute">
-<dt id="DataArray.DataArray.arr">
-<em class="property">var </em><code class="sig-name descname">arr</code>: [dom] eltType<a class="headerlink" href="#DataArray.DataArray.arr" title="Permalink to this definition">¶</a></dt>
+<dt id="DataArray.DataArray1.arr">
+<em class="property">var </em><code class="sig-name descname">arr</code>: [dom] eltType<a class="headerlink" href="#DataArray.DataArray1.arr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="chpl attribute">
-<dt id="DataArray.DataArray.dimensions">
-<em class="property">var </em><code class="sig-name descname">dimensions</code>: domain(string)<a class="headerlink" href="#DataArray.DataArray.dimensions" title="Permalink to this definition">¶</a></dt>
+<dt id="DataArray.DataArray1.dimensions">
+<em class="property">var </em><code class="sig-name descname">dimensions</code>: domain(string)<a class="headerlink" href="#DataArray.DataArray1.dimensions" title="Permalink to this definition">¶</a></dt>
 <dd><p>An index space indicating the labels for each of the axis of the array owned by the DataArray.</p>
 </dd></dl>
 
 <dl class="chpl method">
-<dt id="DataArray.DataArray.init">
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">type eltType</em>, <em class="sig-param">size: domain</em>, <em class="sig-param">dimensions: domain(string)</em><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray.init" title="Permalink to this definition">¶</a></dt>
+<dt id="DataArray.DataArray1.init">
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">type eltType</em>, <em class="sig-param">size: domain</em>, <em class="sig-param">dimensions: domain(string)</em><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray1.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes a DataArray with the given size and value as the default value of the given type.</p>
 </dd></dl>
 
@@ -250,26 +238,192 @@ Refer to <a class="reference external" href="https://chapel-lang.org/docs/primer
 </dd></dl>
 
 <dl class="chpl method">
-<dt id="DataArray.DataArray.add">
-<em class="property">override proc </em><code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.DataArray.add" title="Permalink to this definition">¶</a></dt>
+<dt id="DataArray.DataArray1.add">
+<em class="property">override proc </em><code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.DataArray1.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Utility method to add two <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>.</p>
 <p><strong>Note</strong>: This can be chained with other operators.</p>
 </dd></dl>
 
 <dl class="chpl method">
-<dt id="DataArray.DataArray.subtract">
-<em class="property">override proc </em><code class="sig-name descname">subtract</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.DataArray.subtract" title="Permalink to this definition">¶</a></dt>
+<dt id="DataArray.DataArray1.subtract">
+<em class="property">override proc </em><code class="sig-name descname">subtract</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.DataArray1.subtract" title="Permalink to this definition">¶</a></dt>
 <dd><p>Utility method to subtract two <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>.</p>
 <p><strong>Note</strong>: This can be chained with other operators.</p>
 </dd></dl>
 
 <dl class="chpl method">
-<dt id="DataArray.DataArray.eq">
-<em class="property">override proc </em><code class="sig-name descname">eq</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: bool<a class="headerlink" href="#DataArray.DataArray.eq" title="Permalink to this definition">¶</a></dt>
+<dt id="DataArray.DataArray1.eq">
+<em class="property">override proc </em><code class="sig-name descname">eq</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: bool<a class="headerlink" href="#DataArray.DataArray1.eq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Utility method to check if two <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> are equal.</p>
 </dd></dl>
 
 </dd></dl>
+
+<dl class="chpl class">
+<dt id="DataArray.DataArray2">
+<em class="property">class </em><code class="sig-name descname">DataArray2</code>: AbstractDataArray<a class="headerlink" href="#DataArray.DataArray2" title="Permalink to this definition">¶</a></dt>
+<dd><p>A DataArray is a container over an array with additional support for dimension labels for each axis of the array.</p>
+<dl class="chpl attribute">
+<dt id="DataArray.DataArray2.eltType">
+<em class="property">type </em><code class="sig-name descname">eltType</code><a class="headerlink" href="#DataArray.DataArray2.eltType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of elements contained in the DataArray.</p>
+</dd></dl>
+
+<dl class="chpl attribute">
+<dt id="DataArray.DataArray2.dom">
+<em class="property">var </em><code class="sig-name descname">dom</code>: domain(2, stridable = false)<a class="headerlink" href="#DataArray.DataArray2.dom" title="Permalink to this definition">¶</a></dt>
+<dd><p>The domain of the Chapel array owned by the DataArray.
+Refer to <a class="reference external" href="https://chapel-lang.org/docs/primers/domains.html">the Chapel docs</a> for more information on domains.</p>
+</dd></dl>
+
+<dl class="chpl attribute">
+<dt id="DataArray.DataArray2.arr">
+<em class="property">var </em><code class="sig-name descname">arr</code>: [dom] eltType<a class="headerlink" href="#DataArray.DataArray2.arr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl attribute">
+<dt id="DataArray.DataArray2.dimensions">
+<em class="property">var </em><code class="sig-name descname">dimensions</code>: domain(string)<a class="headerlink" href="#DataArray.DataArray2.dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>An index space indicating the labels for each of the axis of the array owned by the DataArray.</p>
+</dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray2.init">
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">type eltType</em>, <em class="sig-param">size: domain</em>, <em class="sig-param">dimensions: domain(string)</em><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray2.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes a DataArray with the given size and value as the default value of the given type.</p>
+</dd></dl>
+
+<dl class="chpl method">
+<dt>
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">size: domain</em>, <em class="sig-param">dimensions: domain(string)</em>, <em class="sig-param">in default_value</em><span class="sig-paren">)</span></dt>
+<dd><p>Initializes a DataArray with the given size and value as the given value.</p>
+</dd></dl>
+
+<dl class="chpl method">
+<dt>
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">in arr</em>, <em class="sig-param">dimensions: domain(string)</em><span class="sig-paren">)</span></dt>
+<dd><p>Initializes a DataArray with the given array.</p>
+</dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray2.add">
+<em class="property">override proc </em><code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.DataArray2.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility method to add two <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>.</p>
+<p><strong>Note</strong>: This can be chained with other operators.</p>
+</dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray2.subtract">
+<em class="property">override proc </em><code class="sig-name descname">subtract</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.DataArray2.subtract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility method to subtract two <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>.</p>
+<p><strong>Note</strong>: This can be chained with other operators.</p>
+</dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray2.eq">
+<em class="property">override proc </em><code class="sig-name descname">eq</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: bool<a class="headerlink" href="#DataArray.DataArray2.eq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility method to check if two <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> are equal.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="chpl class">
+<dt id="DataArray.DataArray3">
+<em class="property">class </em><code class="sig-name descname">DataArray3</code>: AbstractDataArray<a class="headerlink" href="#DataArray.DataArray3" title="Permalink to this definition">¶</a></dt>
+<dd><p>A DataArray is a container over an array with additional support for dimension labels for each axis of the array.</p>
+<dl class="chpl attribute">
+<dt id="DataArray.DataArray3.eltType">
+<em class="property">type </em><code class="sig-name descname">eltType</code><a class="headerlink" href="#DataArray.DataArray3.eltType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of elements contained in the DataArray.</p>
+</dd></dl>
+
+<dl class="chpl attribute">
+<dt id="DataArray.DataArray3.dom">
+<em class="property">var </em><code class="sig-name descname">dom</code>: domain(3, stridable = false)<a class="headerlink" href="#DataArray.DataArray3.dom" title="Permalink to this definition">¶</a></dt>
+<dd><p>The domain of the Chapel array owned by the DataArray.
+Refer to <a class="reference external" href="https://chapel-lang.org/docs/primers/domains.html">the Chapel docs</a> for more information on domains.</p>
+</dd></dl>
+
+<dl class="chpl attribute">
+<dt id="DataArray.DataArray3.arr">
+<em class="property">var </em><code class="sig-name descname">arr</code>: [dom] eltType<a class="headerlink" href="#DataArray.DataArray3.arr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl attribute">
+<dt id="DataArray.DataArray3.dimensions">
+<em class="property">var </em><code class="sig-name descname">dimensions</code>: domain(string)<a class="headerlink" href="#DataArray.DataArray3.dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>An index space indicating the labels for each of the axis of the array owned by the DataArray.</p>
+</dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray3.init">
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">type eltType</em>, <em class="sig-param">size: domain</em>, <em class="sig-param">dimensions: domain(string)</em><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray3.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes a DataArray with the given size and value as the default value of the given type.</p>
+</dd></dl>
+
+<dl class="chpl method">
+<dt>
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">size: domain</em>, <em class="sig-param">dimensions: domain(string)</em>, <em class="sig-param">in default_value</em><span class="sig-paren">)</span></dt>
+<dd><p>Initializes a DataArray with the given size and value as the given value.</p>
+</dd></dl>
+
+<dl class="chpl method">
+<dt>
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">in arr</em>, <em class="sig-param">dimensions: domain(string)</em><span class="sig-paren">)</span></dt>
+<dd><p>Initializes a DataArray with the given array.</p>
+</dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray3.add">
+<em class="property">override proc </em><code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.DataArray3.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility method to add two <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>.</p>
+<p><strong>Note</strong>: This can be chained with other operators.</p>
+</dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray3.subtract">
+<em class="property">override proc </em><code class="sig-name descname">subtract</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.DataArray3.subtract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility method to subtract two <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>.</p>
+<p><strong>Note</strong>: This can be chained with other operators.</p>
+</dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray3.eq">
+<em class="property">override proc </em><code class="sig-name descname">eq</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: bool<a class="headerlink" href="#DataArray.DataArray3.eq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility method to check if two <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> are equal.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="chpl function">
+<dt id="DataArray.isOperable">
+<em class="property">proc </em><code class="sig-name descname">isOperable</code><span class="sig-paren">(</span><em class="sig-param">lhs: borrowed DataArray1</em>, <em class="sig-param">rhs: borrowed DataArray2</em><span class="sig-paren">)</span> param<a class="headerlink" href="#DataArray.isOperable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl function">
+<dt>
+<em class="property">proc </em><code class="sig-name descname">isOperable</code><span class="sig-paren">(</span><em class="sig-param">lhs: borrowed DataArray2</em>, <em class="sig-param">rhs: borrowed DataArray1</em><span class="sig-paren">)</span> param</dt>
+<dd></dd></dl>
+
+<dl class="chpl function">
+<dt>
+<em class="property">proc </em><code class="sig-name descname">isOperable</code><span class="sig-paren">(</span><em class="sig-param">lhs: borrowed DataArray1</em>, <em class="sig-param">rhs: borrowed DataArray3</em><span class="sig-paren">)</span> param</dt>
+<dd></dd></dl>
+
+<dl class="chpl function">
+<dt>
+<em class="property">proc </em><code class="sig-name descname">isOperable</code><span class="sig-paren">(</span><em class="sig-param">lhs: borrowed DataArray3</em>, <em class="sig-param">rhs: borrowed DataArray1</em><span class="sig-paren">)</span> param</dt>
+<dd></dd></dl>
+
+<dl class="chpl function">
+<dt>
+<em class="property">proc </em><code class="sig-name descname">isOperable</code><span class="sig-paren">(</span><em class="sig-param">lhs: borrowed DataArray2</em>, <em class="sig-param">rhs: borrowed DataArray3</em><span class="sig-paren">)</span> param</dt>
+<dd></dd></dl>
+
+<dl class="chpl function">
+<dt>
+<em class="property">proc </em><code class="sig-name descname">isOperable</code><span class="sig-paren">(</span><em class="sig-param">lhs: borrowed DataArray3</em>, <em class="sig-param">rhs: borrowed DataArray2</em><span class="sig-paren">)</span> param</dt>
+<dd></dd></dl>
 
 <dl class="chpl function">
 <dt id="DataArray.+">
