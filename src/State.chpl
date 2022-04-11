@@ -11,7 +11,15 @@ module State {
         var data_map: map(string, shared AbstractDataArray);
 
         /* Method to add a ``(string, DataArray)`` pair to the state. */
-        proc add(property: string, array: shared DataArray) {
+        proc add(property: string, array: shared DataArray1) {
+            this.data_map.add(property, array);
+        }
+
+        proc add(property: string, array: shared DataArray2) {
+            this.data_map.add(property, array);
+        }
+
+        proc add(property: string, array: shared DataArray3) {
             this.data_map.add(property, array);
         }
 
