@@ -19,19 +19,19 @@ or
 
 .. class:: TendencyComponent
 
-   .. attribute:: var input_properties: map(string, Properties)
+   .. attribute:: var input_properties: map(string, shared Properties)
 
-   .. attribute:: var tendency_properties: map(string, Properties)
+   .. attribute:: var tendency_properties: map(string, shared Properties)
 
-   .. attribute:: var diagnostic_properties: map(string, Properties)
+   .. attribute:: var diagnostic_properties: map(string, shared Properties)
 
-   .. method:: proc init(input_properties: map(string, Properties), tendency_properties: map(string, Properties), diagnostic_properties: map(string, Properties))
+   .. method:: proc init(input_properties: map(string, shared Properties), tendency_properties: map(string, shared Properties), diagnostic_properties: map(string, shared Properties))
 
 .. class:: DiagnosticComponent
 
-   .. attribute:: var input_properties: map(string, Properties)
+   .. attribute:: var input_properties: map(string, shared Properties)
 
-   .. attribute:: var diagnostic_properties: map(string, Properties)
+   .. attribute:: var diagnostic_properties: map(string, shared Properties)
 
-   .. method:: proc init(input_properties: map(string, Properties), diagnostic_properties: map(string, Properties))
+   .. method:: proc init(input_properties: map(string, shared Properties), diagnostic_properties: map(string, shared Properties))
 
