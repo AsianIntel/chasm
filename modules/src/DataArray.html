@@ -219,21 +219,14 @@ Refer to <a class="reference external" href="https://chapel-lang.org/docs/primer
 <dd><p>An index space indicating the labels for each of the axis of the array owned by the DataArray.</p>
 </dd></dl>
 
+<dl class="chpl attribute">
+<dt id="DataArray.DataArray1.units">
+<em class="property">var </em><code class="sig-name descname">units</code>: UnitMarker<a class="headerlink" href="#DataArray.DataArray1.units" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="chpl method">
 <dt id="DataArray.DataArray1.init">
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">type eltType</em>, <em class="sig-param">size: domain</em>, <em class="sig-param">dimensions: domain(string)</em><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray1.init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes a DataArray with the given size and value as the default value of the given type.</p>
-</dd></dl>
-
-<dl class="chpl method">
-<dt>
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">size: domain</em>, <em class="sig-param">dimensions: domain(string)</em>, <em class="sig-param">in default_value</em><span class="sig-paren">)</span></dt>
-<dd><p>Initializes a DataArray with the given size and value as the given value.</p>
-</dd></dl>
-
-<dl class="chpl method">
-<dt>
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">in arr</em>, <em class="sig-param">dimensions: domain(string)</em><span class="sig-paren">)</span></dt>
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">in arr</em>, <em class="sig-param">dimensions: domain(string)</em>, <em class="sig-param">unitMark: UnitMarker</em><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray1.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes a DataArray with the given array.</p>
 </dd></dl>
 
@@ -287,21 +280,14 @@ Refer to <a class="reference external" href="https://chapel-lang.org/docs/primer
 <dd><p>An index space indicating the labels for each of the axis of the array owned by the DataArray.</p>
 </dd></dl>
 
+<dl class="chpl attribute">
+<dt id="DataArray.DataArray2.units">
+<em class="property">var </em><code class="sig-name descname">units</code>: UnitMarker<a class="headerlink" href="#DataArray.DataArray2.units" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="chpl method">
 <dt id="DataArray.DataArray2.init">
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">type eltType</em>, <em class="sig-param">size: domain</em>, <em class="sig-param">dimensions: domain(string)</em><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray2.init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes a DataArray with the given size and value as the default value of the given type.</p>
-</dd></dl>
-
-<dl class="chpl method">
-<dt>
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">size: domain</em>, <em class="sig-param">dimensions: domain(string)</em>, <em class="sig-param">in default_value</em><span class="sig-paren">)</span></dt>
-<dd><p>Initializes a DataArray with the given size and value as the given value.</p>
-</dd></dl>
-
-<dl class="chpl method">
-<dt>
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">in arr</em>, <em class="sig-param">dimensions: domain(string)</em><span class="sig-paren">)</span></dt>
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">in arr</em>, <em class="sig-param">dimensions: domain(string)</em>, <em class="sig-param">unitMark: UnitMarker</em><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray2.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes a DataArray with the given array.</p>
 </dd></dl>
 
@@ -355,21 +341,14 @@ Refer to <a class="reference external" href="https://chapel-lang.org/docs/primer
 <dd><p>An index space indicating the labels for each of the axis of the array owned by the DataArray.</p>
 </dd></dl>
 
+<dl class="chpl attribute">
+<dt id="DataArray.DataArray3.units">
+<em class="property">var </em><code class="sig-name descname">units</code>: UnitMarker<a class="headerlink" href="#DataArray.DataArray3.units" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="chpl method">
 <dt id="DataArray.DataArray3.init">
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">type eltType</em>, <em class="sig-param">size: domain</em>, <em class="sig-param">dimensions: domain(string)</em><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray3.init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes a DataArray with the given size and value as the default value of the given type.</p>
-</dd></dl>
-
-<dl class="chpl method">
-<dt>
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">size: domain</em>, <em class="sig-param">dimensions: domain(string)</em>, <em class="sig-param">in default_value</em><span class="sig-paren">)</span></dt>
-<dd><p>Initializes a DataArray with the given size and value as the given value.</p>
-</dd></dl>
-
-<dl class="chpl method">
-<dt>
-<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">in arr</em>, <em class="sig-param">dimensions: domain(string)</em><span class="sig-paren">)</span></dt>
+<em class="property">proc </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">in arr</em>, <em class="sig-param">dimensions: domain(string)</em>, <em class="sig-param">unitMark: UnitMarker</em><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray3.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes a DataArray with the given array.</p>
 </dd></dl>
 

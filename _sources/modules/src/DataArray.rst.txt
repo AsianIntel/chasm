@@ -48,15 +48,9 @@ or
 
       An index space indicating the labels for each of the axis of the array owned by the DataArray. 
 
-   .. method:: proc init(type eltType, size: domain, dimensions: domain(string))
+   .. attribute:: var units: UnitMarker
 
-      Initializes a DataArray with the given size and value as the default value of the given type. 
-
-   .. method:: proc init(size: domain, dimensions: domain(string), in default_value)
-
-      Initializes a DataArray with the given size and value as the given value. 
-
-   .. method:: proc init(in arr, dimensions: domain(string))
+   .. method:: proc init(in arr, dimensions: domain(string), unitMark: UnitMarker)
 
       Initializes a DataArray with the given array. 
 
@@ -101,15 +95,9 @@ or
 
       An index space indicating the labels for each of the axis of the array owned by the DataArray. 
 
-   .. method:: proc init(type eltType, size: domain, dimensions: domain(string))
+   .. attribute:: var units: UnitMarker
 
-      Initializes a DataArray with the given size and value as the default value of the given type. 
-
-   .. method:: proc init(size: domain, dimensions: domain(string), in default_value)
-
-      Initializes a DataArray with the given size and value as the given value. 
-
-   .. method:: proc init(in arr, dimensions: domain(string))
+   .. method:: proc init(in arr, dimensions: domain(string), unitMark: UnitMarker)
 
       Initializes a DataArray with the given array. 
 
@@ -154,15 +142,9 @@ or
 
       An index space indicating the labels for each of the axis of the array owned by the DataArray. 
 
-   .. method:: proc init(type eltType, size: domain, dimensions: domain(string))
+   .. attribute:: var units: UnitMarker
 
-      Initializes a DataArray with the given size and value as the default value of the given type. 
-
-   .. method:: proc init(size: domain, dimensions: domain(string), in default_value)
-
-      Initializes a DataArray with the given size and value as the given value. 
-
-   .. method:: proc init(in arr, dimensions: domain(string))
+   .. method:: proc init(in arr, dimensions: domain(string), unitMark: UnitMarker)
 
       Initializes a DataArray with the given array. 
 
