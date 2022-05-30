@@ -1,4 +1,6 @@
 module DataArray {
+    private use unit;
+    private use marker;
     pragma "no doc"
     enum DType {Int64, Real64, Bool, String, Undefined};
 
@@ -79,33 +81,10 @@ module DataArray {
 
         /* An index space indicating the labels for each of the axis of the array owned by the DataArray. */
         var dimensions: domain(string);
-
-        /* Initializes a DataArray with the given size and value as the default value of the given type. */
-        proc init(type eltType, size: domain, dimensions: domain(string)) where isDefaultInitializable(eltType) {
-            super.init(eltType, size.rank);
-            this.eltType = eltType;
-            this.dom = size;
-
-            var arr: [size] eltType;
-            this.arr = arr;
-
-            this.dimensions = dimensions;
-        }
-
-        /* Initializes a DataArray with the given size and value as the given value. */
-        proc init(size: domain, dimensions: domain(string), in default_value) where isDefaultInitializable(default_value.type) {
-            super.init(default_value.type, size.rank);
-            this.eltType = default_value.type;
-            this.dom = size;
-            
-            var arr: [size] eltType = default_value;
-            this.arr = arr;
-
-            this.dimensions = dimensions;
-        }
+        var units: UnitMarker;       
 
         /* Initializes a DataArray with the given array. */
-        proc init(in arr, dimensions: domain(string)) {
+        proc init(in arr, dimensions: domain(string), unitMark: UnitMarker) {
             super.init(arr.eltType, arr.domain.rank);
             this.eltType = arr.eltType;
             this.dom = arr.domain;
@@ -113,13 +92,16 @@ module DataArray {
             this.arr = arr;
 
             this.dimensions = dimensions;
+            this.units = unitMark;
         }
 
         pragma "no doc"
         override proc _add(lhs: borrowed DataArray1): owned AbstractDataArray where isOperable(lhs, this) {
             var rhs: borrowed DataArray1 = this;
-            var arr = lhs.arr + rhs.arr;
-            return new owned DataArray1(arr, lhs.dimensions);
+            var lhsUnitArr = new unit_array(lhs.units, lhs.arr);
+            var rhsUnitArr = new unit_array(rhs.units, rhs.arr);            
+            var res = lhsUnitArr + rhsUnitArr;
+            return new owned DataArray1(res.arr, lhs.dimensions, lhs.units);
         }
 
         /* Utility method to add two ``DataArray``. 
@@ -133,8 +115,10 @@ module DataArray {
         pragma "no doc"
         override proc _subtract(lhs: borrowed DataArray1): owned AbstractDataArray where isOperable(lhs, this) {
             var rhs: borrowed DataArray1 = this;
-            var arr = lhs.arr - rhs.arr;
-            return new owned DataArray1(arr, lhs.dimensions);
+            var lhsUnitArr = new unit_array(lhs.units, lhs.arr);
+            var rhsUnitArr = new unit_array(rhs.units, rhs.arr);
+            var res = lhsUnitArr - rhsUnitArr;
+            return new owned DataArray1(res.arr, lhs.dimensions, lhs.units);
         }
 
         /* Utility method to subtract two ``DataArray``. 
@@ -191,33 +175,10 @@ module DataArray {
 
         /* An index space indicating the labels for each of the axis of the array owned by the DataArray. */
         var dimensions: domain(string);
-
-        /* Initializes a DataArray with the given size and value as the default value of the given type. */
-        proc init(type eltType, size: domain, dimensions: domain(string)) where isDefaultInitializable(eltType) {
-            super.init(eltType, size.rank);
-            this.eltType = eltType;
-            this.dom = size;
-
-            var arr: [size] eltType;
-            this.arr = arr;
-
-            this.dimensions = dimensions;
-        }
-
-        /* Initializes a DataArray with the given size and value as the given value. */
-        proc init(size: domain, dimensions: domain(string), in default_value) where isDefaultInitializable(default_value.type) {
-            super.init(default_value.type, size.rank);
-            this.eltType = default_value.type;
-            this.dom = size;
-            
-            var arr: [size] eltType = default_value;
-            this.arr = arr;
-
-            this.dimensions = dimensions;
-        }
+        var units: UnitMarker;        
 
         /* Initializes a DataArray with the given array. */
-        proc init(in arr, dimensions: domain(string)) {
+        proc init(in arr, dimensions: domain(string), unitMark: UnitMarker) {
             super.init(arr.eltType, arr.domain.rank);
             this.eltType = arr.eltType;
             this.dom = arr.domain;
@@ -225,13 +186,16 @@ module DataArray {
             this.arr = arr;
 
             this.dimensions = dimensions;
+            this.units = unitMark;
         }
 
         pragma "no doc"
         override proc _add(lhs: borrowed DataArray2): owned AbstractDataArray where isOperable(lhs, this) {
             var rhs: borrowed DataArray2 = this;
-            var arr = lhs.arr + rhs.arr;
-            return new owned DataArray2(arr, lhs.dimensions);
+            var lhsUnitArr = new unit_array(lhs.units, lhs.arr);
+            var rhsUnitArr = new unit_array(rhs.units, rhs.arr);            
+            var res = lhsUnitArr + rhsUnitArr;
+            return new owned DataArray2(res.arr, lhs.dimensions, lhs.units);
         }
 
         /* Utility method to add two ``DataArray``. 
@@ -244,9 +208,11 @@ module DataArray {
 
         pragma "no doc"
         override proc _subtract(lhs: borrowed DataArray2): owned AbstractDataArray where isOperable(lhs, this) {
-            var rhs: borrowed DataArray1 = this;
-            var arr = lhs.arr - rhs.arr;
-            return new owned DataArray1(arr, lhs.dimensions);
+            var rhs: borrowed DataArray2 = this;
+            var lhsUnitArr = new unit_array(lhs.units, lhs.arr);
+            var rhsUnitArr = new unit_array(rhs.units, rhs.arr);            
+            var res = lhsUnitArr - rhsUnitArr;
+            return new owned DataArray2(res.arr, lhs.dimensions, lhs.units);
         }
 
         /* Utility method to subtract two ``DataArray``. 
@@ -303,33 +269,10 @@ module DataArray {
 
         /* An index space indicating the labels for each of the axis of the array owned by the DataArray. */
         var dimensions: domain(string);
-
-        /* Initializes a DataArray with the given size and value as the default value of the given type. */
-        proc init(type eltType, size: domain, dimensions: domain(string)) where isDefaultInitializable(eltType) {
-            super.init(eltType, size.rank);
-            this.eltType = eltType;
-            this.dom = size;
-
-            var arr: [size] eltType;
-            this.arr = arr;
-
-            this.dimensions = dimensions;
-        }
-
-        /* Initializes a DataArray with the given size and value as the given value. */
-        proc init(size: domain, dimensions: domain(string), in default_value) where isDefaultInitializable(default_value.type) {
-            super.init(default_value.type, size.rank);
-            this.eltType = default_value.type;
-            this.dom = size;
-            
-            var arr: [size] eltType = default_value;
-            this.arr = arr;
-
-            this.dimensions = dimensions;
-        }
+        var units: UnitMarker;        
 
         /* Initializes a DataArray with the given array. */
-        proc init(in arr, dimensions: domain(string)) {
+        proc init(in arr, dimensions: domain(string), unitMark: UnitMarker) {
             super.init(arr.eltType, arr.domain.rank);
             this.eltType = arr.eltType;
             this.dom = arr.domain;
@@ -337,13 +280,16 @@ module DataArray {
             this.arr = arr;
 
             this.dimensions = dimensions;
+            this.units = unitMark;
         }
 
         pragma "no doc"
         override proc _add(lhs: borrowed DataArray3): owned AbstractDataArray where isOperable(lhs, this) {
-            var rhs: borrowed DataArray1 = this;
-            var arr = lhs.arr + rhs.arr;
-            return new owned DataArray1(arr, lhs.dimensions);
+            var rhs: borrowed DataArray3 = this;
+            var lhsUnitArr = new unit_array(lhs.units, lhs.arr);
+            var rhsUnitArr = new unit_array(rhs.units, rhs.arr);            
+            var res = lhsUnitArr + rhsUnitArr;
+            return new owned DataArray3(res.arr, lhs.dimensions, lhs.units);
         }
 
         /* Utility method to add two ``DataArray``. 
@@ -357,8 +303,10 @@ module DataArray {
         pragma "no doc"
         override proc _subtract(lhs: borrowed DataArray3): owned AbstractDataArray where isOperable(lhs, this) {
             var rhs: borrowed DataArray3 = this;
-            var arr = lhs.arr - rhs.arr;
-            return new owned DataArray3(arr, lhs.dimensions);
+            var lhsUnitArr = new unit_array(lhs.units, lhs.arr);
+            var rhsUnitArr = new unit_array(rhs.units, rhs.arr);            
+            var res = lhsUnitArr - rhsUnitArr;
+            return new owned DataArray3(res.arr, lhs.dimensions, lhs.units);
         }
 
         /* Utility method to subtract two ``DataArray``. 
