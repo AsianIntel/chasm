@@ -1,7 +1,9 @@
 module Properties {
     private use marker;
 
-    class Properties {
+    class AbstractProperties {}
+
+    class Properties: AbstractProperties {
         var unit: UnitMarker;
         var dims: domain(string);    
 
