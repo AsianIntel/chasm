@@ -17,7 +17,9 @@ or
 
    import Properties;
 
-.. class:: Properties
+.. class:: AbstractProperties
+
+.. class:: Properties : AbstractProperties
 
    .. attribute:: var unit: UnitMarker
 
