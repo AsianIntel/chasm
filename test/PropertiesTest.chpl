@@ -1,12 +1,15 @@
 use UnitTest;
 use Properties;
+use unit;
+use unit_registry;
 use marker;
 
 proc test_properties(test: borrowed Test) throws {
-    var labels: domain(string) = ["X", "Y", "Z"];
-    var marker = new UnitMarker(1, 0, 0, 0, 0, 0, 0, 1, 0);
+    var x = set_unitSystem("MKS");
+    var l1 = lengthMarker(x.getLengthType("meter"));
+    var labels: domain(string) = ["X", "Y", "Z"];    
 
-    var properties = new Properties(labels, marker);
+    var properties = new Properties(labels, l1);
     test.assertTrue(true);
 }
 
