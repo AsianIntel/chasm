@@ -19,6 +19,10 @@ or
 
 .. class:: AbstractProperties
 
+   .. attribute:: var dims: domain(string)
+
+   .. method:: proc init(labels: domain(string))
+
 .. class:: Properties : AbstractProperties
 
    .. attribute:: var unit: UnitMarker
