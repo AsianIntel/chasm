@@ -1,13 +1,7 @@
 module Properties {
     private use marker;
 
-    class AbstractProperties {
-        var dims: domain(string);
-
-        proc init(labels: domain(string)) {
-            this.dims = labels;
-        }
-    }
+    class AbstractProperties {}
 
     class Properties: AbstractProperties {
         var unit: UnitMarker;
