@@ -55,29 +55,30 @@ proc data_array_subtraction(test: borrowed Test) throws {
     test.assertEqual(d5, d6);
 }
 
-// proc data_array_convert(test: borrowed Test) throws {
-//     var x = set_unitSystem("MKS");
-//     var l1 = lengthMarker(x.getLengthType("meter"));
-//     var dimensions: domain(string) = {"X", "Y"};
+proc data_array_convert(test: borrowed Test) throws {
+    var x = set_unitSystem("MKS");
+    var l1 = lengthMarker(x.getLengthType("meter"));
 
-//     var arr1 = [1.0];
-//     var d_array1 = new shared DataArray1(arr1, dimensions, l1);
+    var dimensions: domain(string) = {"X", "Y"};
 
-//     var arr2: [0..1, 0..1] real = ((1.0, 1.0), (1.0, 1.0));
-//     var d_array2 = new shared DataArray2(arr2, dimensions, l1);
+    var arr1 = [1.0];
+    var d_array1 = new shared DataArray1(arr1, dimensions, l1);
 
-//     var state = new State();
-//     state.add("prop1", d_array1);
-//     state.add("prop2", d_array2);
+    var arr2: [0..1, 0..1] real = ((1.0, 1.0), (1.0, 1.0));
+    var d_array2 = new shared DataArray2(arr2, dimensions, l1);
 
-//     var ada = state.getValue("prop1");
-//     var da1 = try! ada: borrowed DataArray1(real);
+    var state = new State();
+    state.add("prop1", d_array1);
+    state.add("prop2", d_array2);
 
-//     var ada2 = state.getValue("prop2");
-//     var da2 = try! ada2: borrowed DataArray2(real);
+    var ada = state.getValue("prop1");
+    var da1 = try! ada: borrowed DataArray1(real, l1.type);
 
-//     test.assertEqual(da1.arr, [1.0]);
-//     test.assertEqual(da2.arr, arr2);
-// }
+    var ada2 = state.getValue("prop2");
+    var da2 = try! ada2: borrowed DataArray2(real, l1.type);
+
+    test.assertEqual(da1.arr, [1.0]);
+    test.assertEqual(da2.arr, arr2);
+}
 
 UnitTest.main();
