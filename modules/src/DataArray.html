@@ -185,8 +185,18 @@
 <dd></dd></dl>
 
 <dl class="chpl method">
+<dt id="DataArray.AbstractDataArray.multiply">
+<em class="property">proc </em><code class="sig-name descname">multiply</code><span class="sig-paren">(</span><em class="sig-param">rhs: real</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.AbstractDataArray.multiply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl method">
 <dt id="DataArray.AbstractDataArray.eq">
 <em class="property">proc </em><code class="sig-name descname">eq</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: bool<a class="headerlink" href="#DataArray.AbstractDataArray.eq" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.AbstractDataArray.getDomShape">
+<em class="property">proc </em><code class="sig-name descname">getDomShape</code><span class="sig-paren">(</span><span class="sig-paren">)</span>: 3*(int)<a class="headerlink" href="#DataArray.AbstractDataArray.getDomShape" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -245,10 +255,25 @@ Refer to <a class="reference external" href="https://chapel-lang.org/docs/primer
 </dd></dl>
 
 <dl class="chpl method">
+<dt id="DataArray.DataArray1.multiply">
+<em class="property">override proc </em><code class="sig-name descname">multiply</code><span class="sig-paren">(</span><em class="sig-param">rhs: real</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.DataArray1.multiply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl method">
 <dt id="DataArray.DataArray1.eq">
 <em class="property">override proc </em><code class="sig-name descname">eq</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: bool<a class="headerlink" href="#DataArray.DataArray1.eq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Utility method to check if two <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> are equal.</p>
 </dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray1.convertTendencyUnit">
+<em class="property">override proc </em><code class="sig-name descname">convertTendencyUnit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray1.convertTendencyUnit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray1.getDomShape">
+<em class="property">override proc </em><code class="sig-name descname">getDomShape</code><span class="sig-paren">(</span><span class="sig-paren">)</span>: 3*(int)<a class="headerlink" href="#DataArray.DataArray1.getDomShape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -306,10 +331,25 @@ Refer to <a class="reference external" href="https://chapel-lang.org/docs/primer
 </dd></dl>
 
 <dl class="chpl method">
+<dt id="DataArray.DataArray2.multiply">
+<em class="property">override proc </em><code class="sig-name descname">multiply</code><span class="sig-paren">(</span><em class="sig-param">rhs: real</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.DataArray2.multiply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl method">
 <dt id="DataArray.DataArray2.eq">
 <em class="property">override proc </em><code class="sig-name descname">eq</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: bool<a class="headerlink" href="#DataArray.DataArray2.eq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Utility method to check if two <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> are equal.</p>
 </dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray2.convertTendencyUnit">
+<em class="property">override proc </em><code class="sig-name descname">convertTendencyUnit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray2.convertTendencyUnit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray2.getDomShape">
+<em class="property">override proc </em><code class="sig-name descname">getDomShape</code><span class="sig-paren">(</span><span class="sig-paren">)</span>: 3*(int)<a class="headerlink" href="#DataArray.DataArray2.getDomShape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -367,10 +407,25 @@ Refer to <a class="reference external" href="https://chapel-lang.org/docs/primer
 </dd></dl>
 
 <dl class="chpl method">
+<dt id="DataArray.DataArray3.multiply">
+<em class="property">override proc </em><code class="sig-name descname">multiply</code><span class="sig-paren">(</span><em class="sig-param">rhs: real</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.DataArray3.multiply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl method">
 <dt id="DataArray.DataArray3.eq">
 <em class="property">override proc </em><code class="sig-name descname">eq</code><span class="sig-paren">(</span><em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: bool<a class="headerlink" href="#DataArray.DataArray3.eq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Utility method to check if two <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> are equal.</p>
 </dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray3.convertTendencyUnit">
+<em class="property">override proc </em><code class="sig-name descname">convertTendencyUnit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataArray.DataArray3.convertTendencyUnit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl method">
+<dt id="DataArray.DataArray3.getDomShape">
+<em class="property">override proc </em><code class="sig-name descname">getDomShape</code><span class="sig-paren">(</span><span class="sig-paren">)</span>: 3*(int)<a class="headerlink" href="#DataArray.DataArray3.getDomShape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -412,6 +467,11 @@ Refer to <a class="reference external" href="https://chapel-lang.org/docs/primer
 <dl class="chpl function">
 <dt id="DataArray.-">
 <em class="property">proc </em><code class="sig-name descname">-</code><span class="sig-paren">(</span><em class="sig-param">lhs: borrowed AbstractDataArray</em>, <em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.-" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="chpl function">
+<dt id="DataArray.*">
+<em class="property">proc </em><code class="sig-name descname">*</code><span class="sig-paren">(</span><em class="sig-param">lhs: real</em>, <em class="sig-param">rhs: borrowed AbstractDataArray</em><span class="sig-paren">)</span>: owned AbstractDataArray<a class="headerlink" href="#DataArray.*" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="chpl function">

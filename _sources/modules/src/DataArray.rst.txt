@@ -23,7 +23,11 @@ or
 
    .. method:: proc subtract(rhs: borrowed AbstractDataArray): owned AbstractDataArray
 
+   .. method:: proc multiply(rhs: real): owned AbstractDataArray
+
    .. method:: proc eq(rhs: borrowed AbstractDataArray): bool
+
+   .. method:: proc getDomShape(): 3*(int)
 
 .. class:: DataArray1 : AbstractDataArray
 
@@ -68,9 +72,15 @@ or
       **Note**: This can be chained with other operators. 
       
 
+   .. method:: override proc multiply(rhs: real): owned AbstractDataArray
+
    .. method:: override proc eq(rhs: borrowed AbstractDataArray): bool
 
       Utility method to check if two ``DataArray`` are equal. 
+
+   .. method:: override proc convertTendencyUnit()
+
+   .. method:: override proc getDomShape(): 3*(int)
 
 .. class:: DataArray2 : AbstractDataArray
 
@@ -115,9 +125,15 @@ or
       **Note**: This can be chained with other operators. 
       
 
+   .. method:: override proc multiply(rhs: real): owned AbstractDataArray
+
    .. method:: override proc eq(rhs: borrowed AbstractDataArray): bool
 
       Utility method to check if two ``DataArray`` are equal. 
+
+   .. method:: override proc convertTendencyUnit()
+
+   .. method:: override proc getDomShape(): 3*(int)
 
 .. class:: DataArray3 : AbstractDataArray
 
@@ -162,9 +178,15 @@ or
       **Note**: This can be chained with other operators. 
       
 
+   .. method:: override proc multiply(rhs: real): owned AbstractDataArray
+
    .. method:: override proc eq(rhs: borrowed AbstractDataArray): bool
 
       Utility method to check if two ``DataArray`` are equal. 
+
+   .. method:: override proc convertTendencyUnit()
+
+   .. method:: override proc getDomShape(): 3*(int)
 
 .. function:: proc isOperable(lhs: borrowed DataArray1, rhs: borrowed DataArray2) param
 
@@ -181,6 +203,8 @@ or
 .. function:: proc +(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray
 
 .. function:: proc -(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray
+
+.. function:: proc *(lhs: real, rhs: borrowed AbstractDataArray): owned AbstractDataArray
 
 .. function:: proc ==(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): bool
 

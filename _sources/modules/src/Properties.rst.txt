@@ -19,11 +19,21 @@ or
 
 .. class:: AbstractProperties
 
+   .. method:: proc getDims(): domain(string)
+
+   .. method:: proc getMarker(): AbstractUnitMarker
+
+   .. method:: proc intoDataArray1(): DataArray1
+
 .. class:: Properties : AbstractProperties
 
-   .. attribute:: var unit: UnitMarker
+   .. attribute:: var marker: UnitMarker
 
    .. attribute:: var dims: domain(string)
 
-   .. method:: proc init(labels: domain(string), unit: UnitMarker)
+   .. method:: proc init(labels: domain(string), marker: UnitMarker)
+
+   .. method:: override proc getDims(): domain(string)
+
+   .. method:: override proc getMarker(): AbstractUnitMarker
 
