@@ -1,16 +1,38 @@
 module Properties {
     private use marker;
+    private use DataArray;
 
-    class AbstractProperties {}
+    class AbstractProperties {
+        proc getDims(): domain(string) {
+            halt("AbstractProperties doesn't implement getDims");
+        }
+
+        proc getMarker(): AbstractUnitMarker {
+            halt("AbstractProperties doesn't implement getMarker");
+            return new AbstractUnitMarker();
+        }
+
+        proc intoDataArray1(): DataArray1 {
+           halt("AbstractProperties doesn't implement intoDataArray1");
+        }
+    }
 
     class Properties: AbstractProperties {
-        var unit: UnitMarker;
+        var marker: UnitMarker;
         var dims: domain(string);    
 
-        proc init(labels: domain(string), unit: UnitMarker) {
-            super.init(labels);
-            this.unit = unit;
+        proc init(labels: domain(string), marker: UnitMarker) {
+            super.init();
+            this.marker = marker;
             this.dims = labels;                      
+        }
+
+        override proc getDims(): domain(string) {
+            return this.dims;
+        }
+
+        override proc getMarker(): AbstractUnitMarker {
+            return this.marker;
         }
     }
 }

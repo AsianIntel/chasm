@@ -51,6 +51,10 @@ module DataArray {
             halt("Pure virtual method");
         }
 
+        proc multiply(rhs: real): owned AbstractDataArray {
+            halt("Pure virtual method");
+        }
+
         pragma "no doc"
         proc _eq(lhs): bool {
             halt("Pure virtual method");
@@ -63,6 +67,15 @@ module DataArray {
         pragma "no doc"
         proc convertTo(type to_convert): owned AbstractDataArray {
             halt("Pure virtual method");
+        }
+
+        pragma "no doc"
+        proc convertTendencyUnit() {
+            halt("Pure virtual method");
+        }
+
+        proc getDomShape(): 3*int {
+            halt("AbstractDataArray doesn't implement getDomShape");
         }
     }
 
@@ -129,6 +142,10 @@ module DataArray {
             return rhs._subtract(this);
         }
 
+        override proc multiply(rhs: real): owned AbstractDataArray {
+            return new owned DataArray1(rhs * this.arr, this.dimensions, this.units);
+        }
+
         pragma "no doc"
         override proc _eq(lhs: borrowed DataArray1): bool where isOperable(lhs, this) {
             var rhs: borrowed DataArray1 = this;
@@ -157,6 +174,21 @@ module DataArray {
         /* Utility method to check if two ``DataArray`` are equal. */
         override proc eq(rhs: borrowed AbstractDataArray): bool {
             return rhs._eq(this);
+        }
+
+        override proc convertTendencyUnit() {
+            var newMarker = new UnitMarker(this.units.length, this.units.mass, this.units.time - 1, this.units.electric_current, this.units.temperature, this.units.substance, this.units.luminous_intensity, this.units.coefficient, this.units.constant, this.units.symbol + "s^-1");
+            this.units = newMarker;
+        }
+
+        override proc getDomShape(): 3*int {
+            const shape = dom.shape;
+            var retval: 3*int;
+            for i in 0..<dom.rank do
+            retval(i) = shape(i);
+            for i in dom.rank..<3 do
+            retval(i) = 0;
+            return retval;
         }
     }
 
@@ -223,6 +255,10 @@ module DataArray {
             return rhs._subtract(this);
         }
 
+        override proc multiply(rhs: real): owned AbstractDataArray {
+            return new DataArray2(rhs * this.arr, this.dimensions, this.units);
+        }
+
         pragma "no doc"
         override proc _eq(lhs: borrowed DataArray2): bool where isOperable(lhs, this) {
             var rhs: borrowed DataArray2 = this;
@@ -251,6 +287,21 @@ module DataArray {
         /* Utility method to check if two ``DataArray`` are equal. */
         override proc eq(rhs: borrowed AbstractDataArray): bool {
             return rhs._eq(this);
+        }
+
+        override proc convertTendencyUnit() {
+            var newMarker = new UnitMarker(this.units.length, this.units.mass, this.units.time - 1, this.units.electric_current, this.units.temperature, this.units.substance, this.units.luminous_intensity, this.units.coefficient, this.units.constant, this.units.symbol + "s^-1");
+            this.units = newMarker;
+        }
+
+        override proc getDomShape(): 3*int {
+            const shape = dom.shape;
+            var retval: 3*int;
+            for i in 0..<dom.rank do
+            retval(i) = shape(i);
+            for i in dom.rank..<3 do
+            retval(i) = 0;
+            return retval;
         }
     }
 
@@ -317,6 +368,10 @@ module DataArray {
             return rhs._subtract(this);
         }
 
+        override proc multiply(rhs: real): owned AbstractDataArray {
+            return new DataArray3(rhs * this.arr, this.dimensions, this.units);
+        }
+
         pragma "no doc"
         override proc _eq(lhs: borrowed DataArray3): bool where isOperable(lhs, this) {
             var rhs: borrowed DataArray3 = this;
@@ -345,6 +400,21 @@ module DataArray {
         /* Utility method to check if two ``DataArray`` are equal. */
         override proc eq(rhs: borrowed AbstractDataArray): bool {
             return rhs._eq(this);
+        }
+
+        override proc convertTendencyUnit() {
+            var newMarker = new UnitMarker(this.units.length, this.units.mass, this.units.time - 1, this.units.electric_current, this.units.temperature, this.units.substance, this.units.luminous_intensity, this.units.coefficient, this.units.constant, this.units.symbol + "s^-1");
+            this.units = newMarker;
+        }
+
+        override proc getDomShape(): 3*int {
+            const shape = dom.shape;
+            var retval: 3*int;
+            for i in 0..<dom.rank do
+            retval(i) = shape(i);
+            for i in dom.rank..<3 do
+            retval(i) = 0;
+            return retval;
         }
     }
 
@@ -402,6 +472,10 @@ module DataArray {
 
     operator -(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): owned AbstractDataArray {
         return lhs.subtract(rhs);
+    }
+
+    operator *(lhs: real, rhs: borrowed AbstractDataArray): owned AbstractDataArray {
+        return rhs.multiply(lhs);
     }
 
     operator ==(lhs: borrowed AbstractDataArray, rhs: borrowed AbstractDataArray): bool {

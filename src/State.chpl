@@ -10,6 +10,10 @@ module State {
         /* The map containing the ``DataArray`` with a string as the key. */
         var data_map: map(string, shared AbstractDataArray);
 
+        proc add(property: string, array: shared AbstractDataArray) {
+            this.data_map.add(property, array);
+        }
+
         /* Method to add a ``(string, DataArray)`` pair to the state. */
         proc add(property: string, array: shared DataArray1) {
             this.data_map.add(property, array);
